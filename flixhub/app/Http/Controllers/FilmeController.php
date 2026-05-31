@@ -29,38 +29,44 @@ class FilmeController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'titulo' => 'required|string|max:255',
-        'genero' => 'required|string|max:100',
-        'descricao' => 'required',
-        'nota' => 'required|numeric|min:0|max:5', 
-        'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
-    ]);
+    {
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'genero' => 'required|string|max:100',
+            'descricao' => 'required',
+            'nota' => 'required|numeric|min:0|max:5', 
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240' // Limite de 10MB
+        ]);
 
-    $caminhoImagem = null;
+        $caminhoImagem = null;
 
-    if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-        $caminhoImagem = $request->file('imagem')->store('filmes', 'public');
+        // Tenta salvar a imagem direto na pasta pública usando o novo disco 'fotos_publicas'
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            try {
+                $caminhoImagem = $request->file('imagem')->store('filmes', 'fotos_publicas');
+            } catch (\Exception $e) {
+                $caminhoImagem = null; 
+            }
+        }
+
+        // Salva direto deixando o Laravel e o Banco tratarem o decimal nativamente
+        Filme::create([
+            'titulo'    => $request->titulo,
+            'genero'    => $request->genero, 
+            'descricao' => $request->descricao, 
+            'nota'      => $request->nota,
+            'imagem'    => $caminhoImagem
+        ]);
+
+        return redirect('/filmes');
     }
-
-    // Código original limpo e funcional!
-    Filme::create([
-        'titulo'    => $request->titulo,
-        'genero'    => $request->genero, 
-        'descricao' => $request->descricao, 
-        'nota'      => number_format($request->nota, 1, '.', ''),
-        'imagem'    => $caminhoImagem
-    ]);
-
-    return redirect('/filmes');
-}
 
     /**
      * Display the specified resource.
      */
-    public function show(Filme $filme)
+    public function show($id)
     {
+        $filme = Filme::findOrFail($id);
         return view('filmes.show', compact('filme'));
     }
 
@@ -82,24 +88,31 @@ class FilmeController extends Controller
 
         $request->validate([
             'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100', // Validando no update tbm
+            'genero' => 'required|string|max:100', 
             'descricao' => 'required',
             'nota' => 'required|numeric|min:0|max:5',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240' // Limite de 10MB
         ]);
 
         $dados = [
             'titulo' => $request->titulo,
-            'genero' => $request->genero, // CORREÇÃO: Atualizando o gênero no banco
+            'genero' => $request->genero, 
             'descricao' => $request->descricao,
-            'nota' => number_format($request->nota, 1, '.', '') 
+            'nota' => $request->nota 
         ];
 
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-            if ($filme->imagem && Storage::disk('public')->exists($filme->imagem)) {
-                Storage::disk('public')->delete($filme->imagem);
+            try {
+                // Remove a foto antiga usando o disco correto 'fotos_publicas'
+                if ($filme->imagem && Storage::disk('fotos_publicas')->exists($filme->imagem)) {
+                    Storage::disk('fotos_publicas')->delete($filme->imagem);
+                }
+                // Salva a foto nova no disco correto
+                $dados['imagem'] = $request->file('imagem')->store('filmes', 'fotos_publicas');
+            } catch (\Exception $e) {
+                // Mantém a imagem antiga caso o upload falhe
+                $dados['imagem'] = $filme->imagem;
             }
-            $dados['imagem'] = $request->file('imagem')->store('filmes', 'public');
         }
 
         $filme->update($dados);
@@ -114,8 +127,13 @@ class FilmeController extends Controller
     {
         $filme = Filme::findOrFail($id);
 
-        if ($filme->imagem && Storage::disk('public')->exists($filme->imagem)) {
-            Storage::disk('public')->delete($filme->imagem);
+        try {
+            // Remove do local físico público
+            if ($filme->imagem && Storage::disk('fotos_publicas')->exists($filme->imagem)) {
+                Storage::disk('fotos_publicas')->delete($filme->imagem);
+            }
+        } catch (\Exception $e) {
+            // Ignora se der erro físico e foca em limpar o banco de dados
         }
 
         $filme->delete();

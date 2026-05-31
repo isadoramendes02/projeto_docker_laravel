@@ -10,16 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('series', function (Blueprint $table) {
+{
+    Schema::create('series', function (Blueprint $table) {
         $table->id();
         $table->string('titulo');
+        $table->string('genero');
         $table->text('descricao')->nullable();
-        $table->decimal('nota', 3, 1); // Aceita notas como 8.5
-        $table->string('imagem')->nullable(); // Para o cartaz da série
+        $table->decimal('nota', 2, 1)->default(0.0);
+        $table->string('imagem')->nullable();
         $table->timestamps();
     });
-    }
+}
 
     /**
      * Reverse the migrations.

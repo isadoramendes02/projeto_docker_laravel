@@ -47,6 +47,16 @@ return [
             'report' => false,
         ],
 
+        // 🚀 SEU NOVO DISCO AQUI: Salva direto na pasta pública, sem precisar de links!
+        'fotos_publicas' => [
+            'driver' => 'local',
+            'root' => public_path('storage'), 
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

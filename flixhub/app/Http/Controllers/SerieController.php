@@ -32,23 +32,29 @@ class SerieController extends Controller
     {
         $request->validate([
             'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100', // ADICIONADO: Validação do gênero
+            'genero' => 'required|string|max:100',
             'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:5', // CORREÇÃO: Ajustado de max:10 para max:5
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+            'nota' => 'required|numeric|min:0|max:5',
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
         $caminhoImagem = null;
 
+        // Tenta salvar a imagem direto na pasta pública usando o disco 'fotos_publicas'
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-            $caminhoImagem = $request->file('imagem')->store('series', 'public');
+            try {
+                $caminhoImagem = $request->file('imagem')->store('series', 'fotos_publicas');
+            } catch (\Exception $e) {
+                $caminhoImagem = null; 
+            }
         }
 
+        // Cria o registro no banco usando a model com $fillable
         Serie::create([
             'titulo' => $request->titulo,
-            'genero' => $request->genero, // ADICIONADO: Gravando gênero no banco
+            'genero' => $request->genero,
             'descricao' => $request->descricao,
-            'nota' => number_format($request->nota, 1, '.', ''), // Garante o envio de "2.0" direto pro banco
+            'nota' => $request->nota,
             'imagem' => $caminhoImagem
         ]);
 
@@ -82,24 +88,31 @@ class SerieController extends Controller
 
         $request->validate([
             'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100', // ADICIONADO: Validação do gênero no update
+            'genero' => 'required|string|max:100',
             'descricao' => 'required',
             'nota' => 'required|numeric|min:0|max:5',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
         $dados = [
             'titulo' => $request->titulo,
-            'genero' => $request->genero, // ADICIONADO: Atualizando o gênero no banco
+            'genero' => $request->genero,
             'descricao' => $request->descricao,
-            'nota' => number_format($request->nota, 1, '.', '') // Garante o envio de "2.0" direto pro banco
+            'nota' => $request->nota
         ];
 
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-            if ($serie->imagem && Storage::disk('public')->exists($serie->imagem)) {
-                Storage::disk('public')->delete($serie->imagem);
+            try {
+                // Remove a foto antiga usando o disco correto 'fotos_publicas'
+                if ($serie->imagem && Storage::disk('fotos_publicas')->exists($serie->imagem)) {
+                    Storage::disk('fotos_publicas')->delete($serie->imagem);
+                }
+                // Salva a nova imagem no disco público
+                $dados['imagem'] = $request->file('imagem')->store('series', 'fotos_publicas');
+            } catch (\Exception $e) {
+                // Mantém a imagem antiga caso o upload falhe
+                $dados['imagem'] = $serie->imagem;
             }
-            $dados['imagem'] = $request->file('imagem')->store('series', 'public');
         }
 
         $serie->update($dados);
@@ -114,8 +127,13 @@ class SerieController extends Controller
     {
         $serie = Serie::findOrFail($id);
 
-        if ($serie->imagem && Storage::disk('public')->exists($serie->imagem)) {
-            Storage::disk('public')->delete($serie->imagem);
+        try {
+            // Remove a imagem antiga do disco correto 'fotos_publicas' antes de apagar do banco
+            if ($serie->imagem && Storage::disk('fotos_publicas')->exists($serie->imagem)) {
+                Storage::disk('fotos_publicas')->delete($serie->imagem);
+            }
+        } catch (\Exception $e) {
+            // Ignora erro se não conseguir apagar o arquivo físico e prossegue deletando do banco
         }
 
         $serie->delete();
