@@ -29,31 +29,32 @@ class FilmeController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100', // Validando o gênero
-            'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:5', 
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
-        ]);
+{
+    $request->validate([
+        'titulo' => 'required|string|max:255',
+        'genero' => 'required|string|max:100',
+        'descricao' => 'required',
+        'nota' => 'required|numeric|min:0|max:5', 
+        'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
+    ]);
 
-        $caminhoImagem = null;
+    $caminhoImagem = null;
 
-        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
-            $caminhoImagem = $request->file('imagem')->store('filmes', 'public');
-        }
-
-        Filme::create([
-            'titulo' => $request->titulo,
-            'genero' => $request->genero, // CORREÇÃO: Salvando o gênero no banco
-            'descricao' => $request->descricao,
-            'nota' => number_format($request->nota, 1, '.', ''), 
-            'imagem' => $caminhoImagem
-        ]);
-
-        return redirect('/filmes');
+    if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+        $caminhoImagem = $request->file('imagem')->store('filmes', 'public');
     }
+
+    // Código original limpo e funcional!
+    Filme::create([
+        'titulo'    => $request->titulo,
+        'genero'    => $request->genero, 
+        'descricao' => $request->descricao, 
+        'nota'      => number_format($request->nota, 1, '.', ''),
+        'imagem'    => $caminhoImagem
+    ]);
+
+    return redirect('/filmes');
+}
 
     /**
      * Display the specified resource.

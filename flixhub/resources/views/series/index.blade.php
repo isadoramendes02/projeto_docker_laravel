@@ -21,6 +21,7 @@
                 <li><a href="/filmes" class="nav-link">Filmes</a></li>
                 <li><a href="/series" class="nav-link ativo">Séries</a></li>
                 <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+                <li><a href="/busca" class="nav-link">Lista</a></li>
             </ul>
         </div>
     </nav>

@@ -53,3 +53,8 @@ Route::put('/favoritos/{favorito}', [FavoritoController::class, 'update'])->name
 
 // Rota de deletar o favorito (Destroy)
 Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
+
+use App\Http\Controllers\BuscaController;
+
+// Mapeia todas as ações do CRUD para a Minha Lista / Busca
+Route::resource('busca', BuscaController::class);
