@@ -32,6 +32,21 @@
                 </div>
 
                 <div class="form-group">
+                <label for="genero">Gênero</label>
+                <select id="genero" name="genero" class="form-control" required>
+                    <option value="" disabled selected>Selecione um gênero</option>
+                    <option value="Ação">Ação</option>
+                    <option value="Comédia">Comédia</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Ficção Científica">Ficção Científica</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Documentário">Documentário</option>
+                    <option value="Animação">Animação</option>
+                </select>
+                </div>
+
+                <div class="form-group">
                     <label for="imagem">Cartaz do Filme (Imagem)</label>
                     <input type="file" id="imagem" name="imagem" class="form-control" accept="image/*">
                 </div>

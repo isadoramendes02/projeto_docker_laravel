@@ -32,8 +32,9 @@ class SerieController extends Controller
     {
         $request->validate([
             'titulo' => 'required|string|max:255',
+            'genero' => 'required|string|max:100', // ADICIONADO: Validação do gênero
             'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:10',
+            'nota' => 'required|numeric|min:0|max:5', // CORREÇÃO: Ajustado de max:10 para max:5
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
@@ -45,6 +46,7 @@ class SerieController extends Controller
 
         Serie::create([
             'titulo' => $request->titulo,
+            'genero' => $request->genero, // ADICIONADO: Gravando gênero no banco
             'descricao' => $request->descricao,
             'nota' => number_format($request->nota, 1, '.', ''), // Garante o envio de "2.0" direto pro banco
             'imagem' => $caminhoImagem
@@ -80,6 +82,7 @@ class SerieController extends Controller
 
         $request->validate([
             'titulo' => 'required|string|max:255',
+            'genero' => 'required|string|max:100', // ADICIONADO: Validação do gênero no update
             'descricao' => 'required',
             'nota' => 'required|numeric|min:0|max:5',
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
@@ -87,6 +90,7 @@ class SerieController extends Controller
 
         $dados = [
             'titulo' => $request->titulo,
+            'genero' => $request->genero, // ADICIONADO: Atualizando o gênero no banco
             'descricao' => $request->descricao,
             'nota' => number_format($request->nota, 1, '.', '') // Garante o envio de "2.0" direto pro banco
         ];

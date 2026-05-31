@@ -30,6 +30,20 @@
     </div>
 
     <div class="form-group">
+    <label for="genero">Gênero</label>
+    <select id="genero" name="genero" class="form-control" required>
+        <option value="Ação" {{ $filme->genero == 'Ação' ? 'selected' : '' }}>Ação</option>
+        <option value="Comédia" {{ $filme->genero == 'Comédia' ? 'selected' : '' }}>Comédia</option>
+        <option value="Drama" {{ $filme->genero == 'Drama' ? 'selected' : '' }}>Drama</option>
+        <option value="Ficção Científica" {{ $filme->genero == 'Ficção Científica' ? 'selected' : '' }}>Ficção Científica</option>
+        <option value="Terror" {{ $filme->genero == 'Terror' ? 'selected' : '' }}>Terror</option>
+        <option value="Romance" {{ $filme->genero == 'Romance' ? 'selected' : '' }}>Romance</option>
+        <option value="Documentário" {{ $filme->genero == 'Documentário' ? 'selected' : '' }}>Documentário</option>
+        <option value="Animação" {{ $filme->genero == 'Animação' ? 'selected' : '' }}>Animação</option>
+    </select>
+</div>
+
+    <div class="form-group">
         <label for="imagem">Alterar Cartaz (Deixe vazio para manter o atual)</label>
         <input type="file" id="imagem" name="imagem" class="form-control" accept="image/*">
     </div>

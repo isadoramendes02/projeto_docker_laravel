@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Serie extends Model
 {
-    protected $fillable = ['titulo', 'descricao', 'nota', 'imagem'];
+    protected $fillable = ['titulo', 'genero', 'descricao', 'nota', 'imagem'];
 }

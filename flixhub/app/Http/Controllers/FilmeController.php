@@ -30,9 +30,9 @@ class FilmeController extends Controller
      */
     public function store(Request $request)
     {
-        // Trava a validação em no máximo 5 no servidor também
         $request->validate([
             'titulo' => 'required|string|max:255',
+            'genero' => 'required|string|max:100', // Validando o gênero
             'descricao' => 'required',
             'nota' => 'required|numeric|min:0|max:5', 
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
@@ -46,8 +46,9 @@ class FilmeController extends Controller
 
         Filme::create([
             'titulo' => $request->titulo,
+            'genero' => $request->genero, // CORREÇÃO: Salvando o gênero no banco
             'descricao' => $request->descricao,
-            'nota' => number_format($request->nota, 1, '.', ''), // CORREÇÃO: Força o "2.0" para o banco não bugar
+            'nota' => number_format($request->nota, 1, '.', ''), 
             'imagem' => $caminhoImagem
         ]);
 
@@ -78,9 +79,9 @@ class FilmeController extends Controller
     {
         $filme = Filme::findOrFail($id);
 
-        // Trava a validação em no máximo 5 aqui também
         $request->validate([
             'titulo' => 'required|string|max:255',
+            'genero' => 'required|string|max:100', // Validando no update tbm
             'descricao' => 'required',
             'nota' => 'required|numeric|min:0|max:5',
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
@@ -88,8 +89,9 @@ class FilmeController extends Controller
 
         $dados = [
             'titulo' => $request->titulo,
+            'genero' => $request->genero, // CORREÇÃO: Atualizando o gênero no banco
             'descricao' => $request->descricao,
-            'nota' => number_format($request->nota, 1, '.', '') // CORREÇÃO: Força o "2.0" para o banco não bugar
+            'nota' => number_format($request->nota, 1, '.', '') 
         ];
 
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
@@ -111,7 +113,6 @@ class FilmeController extends Controller
     {
         $filme = Filme::findOrFail($id);
 
-        // Apaga a foto antiga do storage para não acumular lixo
         if ($filme->imagem && Storage::disk('public')->exists($filme->imagem)) {
             Storage::disk('public')->delete($filme->imagem);
         }

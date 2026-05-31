@@ -21,7 +21,7 @@
 
     <div class="container">
         <div class="form-container">
-            <h1>📺 Adicionar Série</h1>
+            <h1>📺 Adicionar Serie</h1>
 
             <form action="/series" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -29,6 +29,21 @@
                 <div class="form-group">
                     <label for="titulo">Título da Série</label>
                     <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Ex: Stranger Things" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="genero">Gênero</label>
+                    <select id="genero" name="genero" class="form-control" required>
+                        <option value="" disabled selected>Selecione um gênero</option>
+                        <option value="Ação">Ação</option>
+                        <option value="Comédia">Comédia</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Ficção Científica">Ficção Científica</option>
+                        <option value="Terror">Terror</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Documentário">Documentário</option>
+                        <option value="Animação">Animação</option>
+                    </select>
                 </div>
 
                 <div class="form-group">

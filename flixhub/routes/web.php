@@ -32,3 +32,24 @@ Route::get('/series/{id}/edit', [SerieController::class, 'edit']);
 Route::put('/series/{id}', [SerieController::class, 'update']);
 Route::get('/series/{id}', [SerieController::class, 'show']);
 Route::delete('/series/{id}', [SerieController::class, 'destroy']);
+
+use App\Http\Controllers\FavoritoController;
+
+// Rota de listagem (Index)
+Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
+
+// Rota para exibir a tela de criação com nota inicial (Create)
+// ATENÇÃO: Essa rota DEVE vir antes da rota com parâmetro {favorito} para o Laravel não se confundir
+Route::get('/favoritos/create', [FavoritoController::class, 'create'])->name('favoritos.create');
+
+// Rota de salvar o favorito no banco (Store)
+Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
+
+// Rota para exibir a tela de edição do comentário (Edit)
+Route::get('/favoritos/{favorito}/edit', [FavoritoController::class, 'edit'])->name('favoritos.edit');
+
+// Rota para salvar a atualização do comentário (Update)
+Route::put('/favoritos/{favorito}', [FavoritoController::class, 'update'])->name('favoritos.update');
+
+// Rota de deletar o favorito (Destroy)
+Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');

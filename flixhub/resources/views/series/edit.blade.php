@@ -20,7 +20,7 @@
 
     <div class="container">
         <div class="form-container">
-            <h1>✏️ Editar Série</h1>
+            <h1>✏️ Editar Serie</h1>
 
             <form action="/series/{{ $serie->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -29,6 +29,20 @@
                 <div class="form-group">
                     <label for="titulo">Título da Série</label>
                     <input type="text" id="titulo" name="titulo" class="form-control" value="{{ $serie->titulo }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="genero">Gênero</label>
+                    <select id="genero" name="genero" class="form-control" required>
+                        <option value="Ação" {{ $serie->genero == 'Ação' ? 'selected' : '' }}>Ação</option>
+                        <option value="Comédia" {{ $serie->genero == 'Comédia' ? 'selected' : '' }}>Comédia</option>
+                        <option value="Drama" {{ $serie->genero == 'Drama' ? 'selected' : '' }}>Drama</option>
+                        <option value="Ficção Científica" {{ $serie->genero == 'Ficção Científica' ? 'selected' : '' }}>Ficção Científica</option>
+                        <option value="Terror" {{ $serie->genero == 'Terror' ? 'selected' : '' }}>Terror</option>
+                        <option value="Romance" {{ $serie->genero == 'Romance' ? 'selected' : '' }}>Romance</option>
+                        <option value="Documentário" {{ $serie->genero == 'Documentário' ? 'selected' : '' }}>Documentário</option>
+                        <option value="Animação" {{ $serie->genero == 'Animação' ? 'selected' : '' }}>Animação</option>
+                    </select>
                 </div>
 
                 <div class="form-group">

@@ -11,20 +11,25 @@
         body {
             background-image: url("{{ asset('img/fundo4.jpg') }}") !important;
         }
+        /* Garante que o card seja a referência para o posicionamento absoluto da estrela */
+        .card-filme {
+            position: relative;
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-    <div class="nav-container">
-        <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
-        <ul class="nav-menu">
-            <li><a href="/filmes" class="nav-link">Início</a></li>
-            <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
-            <li><a href="/series" class="nav-link">Séries</a></li>
-        </ul>
-    </div>
-</nav>
+        <div class="nav-container">
+            <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
+            <ul class="nav-menu">
+                <li><a href="/filmes" class="nav-link">Início</a></li>
+                <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
+                <li><a href="/series" class="nav-link">Séries</a></li>
+                <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <div class="container">
         
@@ -36,6 +41,32 @@
         <div class="grade-filmes">
             @forelse($filmes as $filme)
                 <div class="card-filme">
+                    
+                    @php
+                        $favoritoFilme = \App\Models\Favorito::where('favoritavel_id', $filme->id)
+                                                             ->where('favoritavel_type', \App\Models\Filme::class)
+                                                             ->first();
+                    @endphp
+
+                    @if($favoritoFilme)
+                        <form action="{{ route('favoritos.destroy', $favoritoFilme->id) }}" method="POST" style="position: absolute; top: 15px; right: 15px; margin: 0; z-index: 10;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" title="Remover dos Favoritos" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #ffca28; text-shadow: 0 0 5px rgba(0,0,0,0.7); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                                ⭐
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('favoritos.store') }}" method="POST" style="position: absolute; top: 15px; right: 15px; margin: 0; z-index: 10;">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $filme->id }}">
+                            <input type="hidden" name="tipo" value="Filme">
+                            <button type="submit" title="Adicionar aos Favoritos" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.7); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                                ☆
+                            </button>
+                        </form>
+                    @endif
+
                     @if($filme->imagem)
                         <img src="{{ asset('storage/' . $filme->imagem) }}" alt="{{ $filme->titulo }}" class="filme-cartaz">
                     @else
@@ -46,6 +77,12 @@
                         <div class="card-topo">
                             <h3 class="filme-titulo">{{ $filme->titulo }}</h3>
                             <span class="filme-nota">⭐ {{ $filme->nota }}/5</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 0.5rem;">
+                            <span class="filme-genero" style="font-size: 0.85rem; color: #aaa; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px;">
+                                🏷️ {{ $filme->genero ?? 'Outro' }}
+                            </span>
                         </div>
                         
                         <p class="filme-descricao">
