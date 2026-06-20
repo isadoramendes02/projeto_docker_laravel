@@ -1,60 +1,59 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FilmeController;
-use App\Http\Controllers\SerieController; // Garanta que essa linha existe!
+use App\Http\Controllers\SerieController;
+use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\BuscaController;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Rotas do Sistema
-|--------------------------------------------------------------------------
-*/
-
-// Rota Inicial (Redireciona direto para os filmes para facilitar)
+// Rota Inicial Pública (Se quiser que mande direto para a tela do Breeze ou Welcome)
 Route::get('/', function () {
-    return redirect('/filmes');
+    return view('welcome');
 });
 
-// Rotas de Filmes
-Route::get('/filmes', [FilmeController::class, 'index']);
-Route::get('/filmes/create', [FilmeController::class, 'create']);
-Route::post('/filmes', [FilmeController::class, 'store']);
-Route::get('/filmes/{id}/edit', [FilmeController::class, 'edit']);
-Route::put('/filmes/{id}', [FilmeController::class, 'update']);
-Route::get('/filmes/{id}', [FilmeController::class, 'show']);
-Route::delete('/filmes/{id}', [FilmeController::class, 'destroy']);
+// Rota do Dashboard padrão do Breeze
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Rotas de Séries (Exatamente no mesmo padrão, sem conflitos)
-Route::get('/series', [SerieController::class, 'index']);
-Route::get('/series/create', [SerieController::class, 'create']);
-Route::post('/series', [SerieController::class, 'store']);
-Route::get('/series/{id}/edit', [SerieController::class, 'edit']);
-Route::put('/series/{id}', [SerieController::class, 'update']);
-Route::get('/series/{id}', [SerieController::class, 'show']);
-Route::delete('/series/{id}', [SerieController::class, 'destroy']);
+// --- TODAS AS SUAS ROTAS ANTIGAS PROTEGIDAS PELO LOGIN ---
+Route::middleware('auth')->group(function () {
+    
+    // Perfil do Usuário (Breeze)
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-use App\Http\Controllers\FavoritoController;
+    // Suas Rotas de Filmes
+    Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes.index');
+    Route::get('/filmes/create', [FilmeController::class, 'create'])->name('filmes.create');
+    Route::post('/filmes', [FilmeController::class, 'store'])->name('filmes.store');
+    Route::get('/filmes/{id}/edit', [FilmeController::class, 'edit'])->name('filmes.edit');
+    Route::put('/filmes/{id}', [FilmeController::class, 'update'])->name('filmes.update');
+    Route::get('/filmes/{id}', [FilmeController::class, 'show'])->name('filmes.show');
+    Route::delete('/filmes/{id}', [FilmeController::class, 'destroy'])->name('filmes.destroy');
 
-// Rota de listagem (Index)
-Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
+    // Suas Rotas de Séries
+    Route::get('/series', [SerieController::class, 'index'])->name('series.index');
+    Route::get('/series/create', [SerieController::class, 'create'])->name('series.create');
+    Route::post('/series', [SerieController::class, 'store'])->name('series.store');
+    Route::get('/series/{id}/edit', [SerieController::class, 'edit'])->name('series.edit');
+    Route::put('/series/{id}', [SerieController::class, 'update'])->name('series.update');
+    Route::get('/series/{id}', [SerieController::class, 'show'])->name('series.show');
+    Route::delete('/series/{id}', [SerieController::class, 'destroy'])->name('series.destroy');
 
-// Rota para exibir a tela de criação com nota inicial (Create)
-// ATENÇÃO: Essa rota DEVE vir antes da rota com parâmetro {favorito} para o Laravel não se confundir
-Route::get('/favoritos/create', [FavoritoController::class, 'create'])->name('favoritos.create');
+    // Suas Rotas de Favoritos
+    Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
+    Route::get('/favoritos/create', [FavoritoController::class, 'create'])->name('favoritos.create');
+    Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
+    Route::get('/favoritos/{favorito}/edit', [FavoritoController::class, 'edit'])->name('favoritos.edit');
+    Route::put('/favoritos/{favorito}', [FavoritoController::class, 'update'])->name('favoritos.update');
+    Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
 
-// Rota de salvar o favorito no banco (Store)
-Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
+    // Sua Rota de Busca (Consertada e fechada corretamente)
+    Route::resource('busca', BuscaController::class);
+});
 
-// Rota para exibir a tela de edição do comentário (Edit)
-Route::get('/favoritos/{favorito}/edit', [FavoritoController::class, 'edit'])->name('favoritos.edit');
-
-// Rota para salvar a atualização do comentário (Update)
-Route::put('/favoritos/{favorito}', [FavoritoController::class, 'update'])->name('favoritos.update');
-
-// Rota de deletar o favorito (Destroy)
-Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
-
-use App\Http\Controllers\BuscaController;
-
-// Mapeia todas as ações do CRUD para a Minha Lista / Busca
-Route::resource('busca', BuscaController::class);
+// Puxa as rotas de login/cadastro por fora
+require __DIR__.'/auth.php';

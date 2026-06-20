@@ -5,7 +5,9 @@ RUN echo "upload_max_filesize = 50M" > /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size = 50M" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # INSTALA E ATIVA O OPCACHE (Aceleração máxima de leitura de arquivos)
-RUN docker-php-ext-install pdo pdo_mysql opcache \
+RUN apt-get update && apt-get install -y libonig-dev
+
+RUN docker-php-ext-install pdo pdo_mysql mbstring opcache \
     && echo "opcache.enable=1" > /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.memory_consumption=256" >> /usr/local/etc/php/conf.d/opcache.ini \
     && echo "opcache.max_accelerated_files=20000" >> /usr/local/etc/php/conf.d/opcache.ini \
