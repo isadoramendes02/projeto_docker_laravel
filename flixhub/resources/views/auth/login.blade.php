@@ -1,47 +1,75 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Flixhub</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<div class="login-container">
+    <div id="bgSlider" class="bg-slider"></div>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <div class="login-card">
+        <h2>Entrar</h2>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <div class="form-group">
+                <input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required autofocus>
+                @error('email') <span style="color: #e50914; font-size: 0.85rem;">{{ $message }}</span> @enderror
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Senha" required autocomplete="current-password">
+                @error('password') <span style="color: #e50914; font-size: 0.85rem;">{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+            <button type="submit" class="btn-login">Entrar</button>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+            <div class="login-links">
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}">Esqueceu a senha?</a>
+                @endif
+                <a href="{{ route('register') }}">Criar uma conta</a>
+            </div>
+        </form>
+    </div>
+</div>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Coloque os links ou caminhos das suas imagens preferidas aqui:
+        const imagens = [
+            "/img/imagem1.jpg",
+            "/img/imagem2.jpg",
+            "/img/imagem3.jpg",
+            "/img/imagem8.jpg",
+            "/img/imagem9.jpg",
+            "/img/imagem10.jpg",
+            "/img/img5.jpg",
+            "/img/img6.jpg",
+            "/img/img7.jpg",
+            "/img/img8.jpg",
+            "/img/imagem4.jpg",
+            "/img/imagem5.jpg",
+            "/img/img11.jpg",
+            "/img/img12.jpg",
+            "/img/img13.jpg",
+            "/img/imagem6.jpg",
+            "/img/img15.jpg",
+            "/img/img16.jpg",
+            "/img/imagem7.jpg",
+        ];
+
+
+        const slider = document.getElementById("bgSlider");
+        let index = 0;
+
+        function mudarFundo() {
+            slider.style.backgroundImage = `url('${imagens[index]}')`;
+            index = (index + 1) % imagens.length;
+        }
+
+        mudarFundo();
+        setInterval(mudarFundo, 5000); // Troca a cada 5 segundos
+    });
+</script>

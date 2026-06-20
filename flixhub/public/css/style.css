@@ -388,3 +388,122 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Efeito de sombra */
 }
 /* filmes edit */
+
+/* public/css/style.css */
+/* ==========================================================================
+   ESTILOS DA TELA DE LOGIN (INTEGRADO COM AS SUAS FONTES)
+   ========================================================================== */
+
+.login-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: #031430; /* Azul escuro de fundo */
+    font-family: 'Thin', sans-serif; /* Define a fonte fina como padrão do login */
+}
+.bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* A linha transition foi removida daqui para a troca ser instantânea */
+    z-index: 1;
+    filter: brightness(0.4); 
+}
+/* O BLOCO PRETO TRANSPARENTE */
+.login-card {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.65); /* Preto transparente */
+    padding: 60px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* O TÍTULO USANDO SUA FONTE DE CINEMA */
+.login-card h2 {
+    font-family: 'cinemafont', sans-serif; /* Sua fonte customizada aqui! */
+    color: #ffffff;
+    font-size: 2.5rem; /* Aumentei um pouquinho porque fontes de cinema costumam pedir destaque */
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+/* INPUTS USANDO A FONTE THIN */
+.form-group input {
+    font-family: 'Thin', sans-serif; /* Sua fonte fina nos inputs */
+    width: 100%;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.1); 
+    border: none; 
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #cbd5e1;
+}
+
+.form-group input:focus {
+    background: rgba(255, 255, 255, 0.15); 
+    outline: none; 
+}
+
+/* BOTÃO AZUL ESCURO COM A FONTE THIN (OU CINEMA SE PREFERIR) */
+.btn-login {
+    font-family: 'Thin', sans-serif; /* Fonte fina no botão, se quiser mudar para 'cinemafont' é só trocar aqui */
+    width: 100%;
+    padding: 16px;
+    background-color: #104982; /* Tom de azul escuro */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-login:hover {
+    background-color: #002d5c; 
+}
+
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* LINKS COM A FONTE THIN */
+.login-links a {
+    font-family: 'Thin', sans-serif;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.login-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
