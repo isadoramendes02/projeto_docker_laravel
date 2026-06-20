@@ -28,7 +28,7 @@
 
     <div class="container">
         <header class="cabecalho-secao">
-            <h1 class="titulo-secao">Séries Cadastradas</h1>
+            <h1 class="titulo-secao">Series Cadastradas</h1>
             <a href="/series/create" class="btn-adicionar">+ Nova Série</a>
         </header>
 
