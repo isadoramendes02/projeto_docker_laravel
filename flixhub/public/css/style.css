@@ -1992,3 +1992,143 @@ ESTILIZAÇÃO DA TABELA COMPLETA DE MINHA LISTA
     margin-top: 5px; 
     display: block;
 }
+
+/* --- CORREÇÃO DO CARD DETALHADO (TÍTULO E DESCRIÇÃO) --- */
+
+.card-detalhado {
+    display: flex;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.6); /* Ajuste conforme o seu tema */
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Força a imagem a manter um tamanho fixo e não esmagar */
+.card-detalhado img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/* Caixa de informações ao lado da imagem */
+.card-info {
+    flex: 1;
+    min-width: 0; /* CRUCIAL: Permite que elementos flex de texto respeitem o limite do pai */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #fff;
+}
+
+/* Correção para o Título Gigante */
+.card-info h2 {
+    font-size: 28px;
+    margin: 0 0 5px 0;
+    word-wrap: break-word;
+    word-break: break-word; /* Força a quebra de texto contínuo como 'aaaaa...' */
+    overflow-wrap: break-word;
+}
+
+/* Informações de Tipo, Gênero, etc. */
+.card-info p {
+    margin: 0;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+/* Correção da Caixa de Descrição */
+.card-descricao {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-descricao p {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ccc;
+    word-wrap: break-word;
+    word-break: break-word; /* Impede que textos contínuos quebrem a caixinha */
+    overflow-wrap: break-word;
+}
+
+/* --- ESTILIZAÇÃO DO CONTAINER DE ALERTAS (MANTIDO) --- */
+.alerta-container {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alerta {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.alerta-sucesso {
+    background-color: #10b981;
+}
+
+.alerta-erro {
+    background-color: #ef4444;
+}
+
+.error-box {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 15px;
+    border-radius: 8px;
+    color: #991b1b;
+}
+
+.error-box ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- CLASSES AUXILIARES E BOTÕES (MANTIDO) --- */
+.form-hidden {
+    display: none;
+}
+
+.btn-editar-lista {
+    background-color: #2563eb !important;
+    color: white;
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.2s ease;
+}
+
+.btn-editar-lista:hover {
+    background-color: #1d4ed8 !important;
+}
+
+.form-deletar {
+    flex: 1; 
+    display: flex;
+}
+
+.btn-full-width {
+    width: 100%;
+}

@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 
 class BuscaController extends Controller
 {
-    /**
-     * Exibe a página principal com a barra de busca e a lista em formato de cards com trailer
-     */
     public function index(Request $request)
     {
         $termo = $request->input('query');
@@ -21,39 +18,39 @@ class BuscaController extends Controller
         $userId = $request->user()->id;
 
         if ($termo) {
-            // FILMES
             $filmes = Filme::where('user_id', $userId)
                 ->where(function ($query) use ($termo) {
                     $query->where('titulo', 'LIKE', "%{$termo}%")
                           ->orWhere('genero', 'LIKE', "%{$termo}%");
                 })
                 ->get()
-                ->map(function ($item) {
+                ->map(function ($item) use ($userId) {
                     $item->tipo = 'Filme';
-                    $item->favorito = Favorito::where('favoritavel_id', $item->id)
+                    $item->favorito = Favorito::where('user_id', $userId)
+                        ->where('favoritavel_id', $item->id)
                         ->where('favoritavel_type', Filme::class)
                         ->exists();
 
-                    $playlist = Playlist::where('nome', $item->titulo)->first();
+                    $playlist = Playlist::where('user_id', $userId)->where('nome', $item->titulo)->first();
                     $item->trailer = $playlist ? $playlist->trailer : null;
 
                     return $item;
                 });
 
-            // SÉRIES
             $series = Serie::where('user_id', $userId)
                 ->where(function ($query) use ($termo) {
                     $query->where('titulo', 'LIKE', "%{$termo}%")
                           ->orWhere('genero', 'LIKE', "%{$termo}%");
                 })
                 ->get()
-                ->map(function ($item) {
+                ->map(function ($item) use ($userId) {
                     $item->tipo = 'Série';
-                    $item->favorito = Favorito::where('favoritavel_id', $item->id)
+                    $item->favorito = Favorito::where('user_id', $userId)
+                        ->where('favoritavel_id', $item->id)
                         ->where('favoritavel_type', Serie::class)
                         ->exists();
 
-                    $playlist = Playlist::where('nome', $item->titulo)->first();
+                    $playlist = Playlist::where('user_id', $userId)->where('nome', $item->titulo)->first();
                     $item->trailer = $playlist ? $playlist->trailer : null;
 
                     return $item;
@@ -62,12 +59,11 @@ class BuscaController extends Controller
             $resultados = $filmes->concat($series);
         }
 
-        // Puxa a lista salva e vincula o trailer dinamicamente pelo título da obra
         $minhaLista = Busca::where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
+            ->latest('updated_at')
             ->get()
-            ->map(function ($item) {
-                $playlist = Playlist::where('nome', $item->titulo_obra)->first();
+            ->map(function ($item) use ($userId) {
+                $playlist = Playlist::where('user_id', $userId)->where('nome', $item->titulo_obra)->first();
                 $item->trailer = $playlist ? $playlist->trailer : null;
                 return $item;
             });
@@ -78,10 +74,12 @@ class BuscaController extends Controller
     public function create(Request $request)
     {
         $titulo = $request->query('titulo');
-        $obra = Filme::where('titulo', $titulo)->first();
+        $userId = $request->user()->id;
+        
+        $obra = Filme::where('user_id', $userId)->where('titulo', $titulo)->first();
 
         if (!$obra) {
-            $obra = Serie::where('titulo', $titulo)->first();
+            $obra = Serie::where('user_id', $userId)->where('titulo', $titulo)->first();
             if ($obra) {
                 $obra->tipo = 'Série';
             }
@@ -91,13 +89,13 @@ class BuscaController extends Controller
 
         $playlist = null;
         if ($obra) {
-            $playlist = Playlist::where('nome', $obra->titulo)->first();
+            $playlist = Playlist::where('user_id', $userId)->where('nome', $obra->titulo)->first();
         }
 
         return view('busca.create', compact('titulo', 'obra', 'playlist'));
     }
 
-   public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'titulo_obra' => 'required|string',
@@ -107,7 +105,6 @@ class BuscaController extends Controller
 
         $userId = $request->user()->id;
         
-        // Tenta achar a obra original em Filmes ou Séries
         $obra = Filme::where('user_id', $userId)->where('titulo', $request->input('titulo_obra'))->first();
         $tipo = 'Filme';
         $isFavorito = false;
@@ -117,14 +114,12 @@ class BuscaController extends Controller
             $tipo = 'Série';
             
             if ($obra) {
-                // ADICIONADO: Filtra também pelo user_id do usuário logado na tabela de favoritos
                 $isFavorito = Favorito::where('user_id', $userId)
                     ->where('favoritavel_id', $obra->id)
                     ->where('favoritavel_type', Serie::class)
                     ->exists();
             }
         } else {
-            // ADICIONADO: Filtra também pelo user_id do usuário logado na tabela de favoritos
             $isFavorito = Favorito::where('user_id', $userId)
                 ->where('favoritavel_id', $obra->id)
                 ->where('favoritavel_type', Filme::class)
@@ -137,24 +132,26 @@ class BuscaController extends Controller
             'tipo'        => $tipo,
             'genero'      => $obra ? $obra->genero : null,
             'nota'        => $obra ? $obra->nota : null,
-            'favoritado'  => $isFavorito ? 1 : 0, // Garante o salvamento correto baseado no usuário
-            'favorito'    => $isFavorito ? 1 : 0, // Mantido caso sua coluna se chame apenas favorito
+            'favoritado'  => $isFavorito ? 1 : 0,
+            'favorito'    => $isFavorito ? 1 : 0,
             'imagem'      => $obra ? $obra->imagem : null,
             'comentario'  => $request->input('comentario'),
             'status'      => $request->input('status'),
         ]);
 
-        return redirect()->route('busca.index')->with('sucesso', 'Item adicionado à sua lista com sucesso!');
+        return redirect()->route('busca.index')->with('success', 'Item adicionado à sua lista com sucesso!');
     }
+
     public function show(Busca $busca) {}
 
     public function edit(Request $request, $id)
     {
-        $busca = Busca::where('user_id', $request->user()->id)->findOrFail($id);
-        $obra = Filme::where('titulo', $busca->titulo_obra)->first();
+        $userId = $request->user()->id;
+        $busca = Busca::where('user_id', $userId)->findOrFail($id);
+        $obra = Filme::where('user_id', $userId)->where('titulo', $busca->titulo_obra)->first();
 
         if (!$obra) {
-            $obra = Serie::where('titulo', $busca->titulo_obra)->first();
+            $obra = Serie::where('user_id', $userId)->where('titulo', $busca->titulo_obra)->first();
             if ($obra) {
                 $obra->tipo = 'Série';
             }
@@ -164,7 +161,7 @@ class BuscaController extends Controller
 
         $playlist = null;
         if ($obra) {
-            $playlist = Playlist::where('nome', $obra->titulo)->first();
+            $playlist = Playlist::where('user_id', $userId)->where('nome', $obra->titulo)->first();
         }
 
         return view('busca.edit', compact('busca', 'obra', 'playlist'));
@@ -183,7 +180,7 @@ class BuscaController extends Controller
             'status'     => $request->input('status')
         ]);
 
-        return redirect()->route('busca.index')->with('sucesso', 'Registro atualizado com sucesso!');
+        return redirect()->route('busca.index')->with('success', 'Registro atualizado com sucesso!');
     }
 
     public function destroy(Request $request, $id)
@@ -191,6 +188,6 @@ class BuscaController extends Controller
         $busca = Busca::where('user_id', $request->user()->id)->findOrFail($id);
         $busca->delete();
 
-        return redirect()->route('busca.index')->with('sucesso', 'Item removido da sua lista!');
+        return redirect()->route('busca.index')->with('success', 'Item removido da sua lista!');
     }
 }
