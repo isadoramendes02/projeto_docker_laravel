@@ -1,14 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flixhub</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+<body>
 
-<div class="login-container welcome-wrapper">
+<div class="welcome-page-exclusiva">
     <div id="bgSlider" class="bg-slider"></div>
 
     <nav class="welcome-nav">
-        <h2 class="logo-text">FlixHub</h2>
+        <h2 class="logo-text">Flix<span>Hub</span></h2>
     </nav>
 
     <div class="profile-selection-container">
@@ -42,10 +46,10 @@
         const imagens = [
             "/img/imagem1.jpg", "/img/imagem2.jpg", "/img/imagem3.jpg",
             "/img/imagem8.jpg", "/img/imagem9.jpg", "/img/imagem10.jpg",
-            "/img/img5.jpg", "/img/img6.jpg", "/img/img7.jpg",
-            "/img/img8.jpg", "/img/imagem4.jpg", "/img/imagem5.jpg",
-            "/img/img11.jpg", "/img/img12.jpg", "/img/img13.jpg",
-            "/img/imagem6.jpg", "/img/img15.jpg", "/img/img16.jpg",
+            "/img/img5.jpg",    "/img/img6.jpg",    "/img/img7.jpg",
+            "/img/img8.jpg",    "/img/imagem4.jpg", "/img/imagem5.jpg",
+            "/img/img11.jpg",   "/img/img12.jpg",   "/img/img13.jpg",
+            "/img/imagem6.jpg", "/img/img15.jpg",   "/img/img16.jpg",
             "/img/imagem7.jpg"
         ];
 
@@ -53,11 +57,15 @@
         let index = 0;
 
         function mudarFundo() {
-            slider.style.backgroundImage = `url('${imagens[index]}')`;
-            index = (index + 1) % imagens.length;
+            if (slider) {
+                slider.style.backgroundImage = `url('${imagens[index]}')`;
+                index = (index + 1) % imagens.length;
+            }
         }
 
         mudarFundo();
         setInterval(mudarFundo, 5000);
     });
 </script>
+</body>
+</html>

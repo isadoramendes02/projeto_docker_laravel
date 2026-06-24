@@ -9,10 +9,8 @@ class Busca extends Model
 {
     use HasFactory;
 
-    // Define a tabela explicitamente (boa prática)
     protected $table = 'buscas';
 
-    // Libera os campos para serem salvos no banco
     protected $fillable = [
     'user_id',
     'titulo_obra',

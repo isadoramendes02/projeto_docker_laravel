@@ -6,25 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
         public function up(): void
     {
         Schema::create('filmes', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('genero'); // Adicionado
+            $table->string('genero');
             $table->text('descricao')->nullable();
-            $table->decimal('nota', 2, 1)->default(0.0); // Ajustado para aceitar decimais (ex: 4.5)
-            $table->string('imagem')->nullable(); // Adicionado
+            $table->decimal('nota', 2, 1)->default(0.0); 
+            $table->string('imagem')->nullable();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('filmes');

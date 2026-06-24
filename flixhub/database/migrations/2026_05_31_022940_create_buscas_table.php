@@ -6,22 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
 {
     Schema::create('buscas', function (Blueprint $table) {
         $table->id();
-        $table->string('titulo_obra'); // Nome do filme ou série
-        $table->text('comentario');   // Seu comentário
+        $table->string('titulo_obra'); 
+        $table->text('comentario');   
         $table->timestamps();
     });
 }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('buscas');

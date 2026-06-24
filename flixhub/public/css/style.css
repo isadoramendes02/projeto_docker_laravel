@@ -2132,3 +2132,842 @@ ESTILIZAÇÃO DA TABELA COMPLETA DE MINHA LISTA
 .btn-full-width {
     width: 100%;
 }
+/* --- GRADE DE MENU EXCLUSIVA DO PAINEL (ISOLADA) --- */
+.dashboard-menu-container .painel-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Modificadores apenas para os cards que estão dentro desta grade do painel */
+.dashboard-menu-container .painel-grid .menu-card {
+    flex: 1 1 calc(20% - 25px);
+    min-width: 180px;
+    max-width: 220px;
+    box-sizing: border-box;
+}
+
+/* --- ESCALA ISOLADA PARA A TELA DE BOAS-VINDAS --- */
+/* ==========================================================================
+   TELA DE CRIAÇÃO (PLAYLISTS/CREATE) - ALINHAMENTO COMPLETO
+   ========================================================================== */
+
+.pagina-create-playlist-exclusiva {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Garante que o slider de fotos fique atrás de tudo e visível */
+.pagina-create-playlist-exclusiva .bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.2s ease-in-out;
+    z-index: 9999 !important; 
+    filter: brightness(0.4);
+}
+
+/* Caixa do formulário perfeitamente centralizada e estruturada */
+.pagina-create-playlist-exclusiva .formulario-container {
+    position: relative;
+    z-index: 10000 !important; 
+    background: rgba(15, 15, 15, 0.9) !important;
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 550px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Alinhamento do título principal */
+.pagina-create-playlist-exclusiva .titulo-pagina {
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Alinhamento vertical dos blocos de input para ficarem retos */
+.pagina-create-playlist-exclusiva .grupo-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilização padrão para as Labels */
+.pagina-create-playlist-exclusiva .grupo-input label {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Força todos os campos de texto, select e textarea a ficarem do mesmo tamanho e alinhados */
+.pagina-create-playlist-exclusiva .grupo-input input[type="text"],
+.pagina-create-playlist-exclusiva .grupo-input select,
+.pagina-create-playlist-exclusiva .grupo-input textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px 15px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Input do tipo File com espaçamento corrigido */
+.pagina-create-playlist-exclusiva .grupo-input input[type="file"] {
+    width: 100% !important;
+    color: #cccccc !important;
+    font-size: 0.95rem !important;
+    box-sizing: border-box !important;
+}
+
+/* Foco nos campos */
+.pagina-create-playlist-exclusiva .grupo-input input:focus,
+.pagina-create-playlist-exclusiva .grupo-input select:focus,
+.pagina-create-playlist-exclusiva .grupo-input textarea:focus {
+    outline: none !important;
+    border-color: #00bcd4 !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Alinhamento horizontal e espaçamento dos botões */
+.pagina-create-playlist-exclusiva {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 60px 20px; /* Aumentado o padding para dar espaço de rolagem no topo e na base */
+    overflow-y: auto !important; /* Libera a rolagem vertical se o conteúdo crescer */
+    font-family: Arial, sans-serif;
+}
+
+/* O slider continua fixo travado no fundo enquanto você rola o formulário */
+.pagina-create-playlist-exclusiva .bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.2s ease-in-out;
+    z-index: 9999 !important; 
+    filter: brightness(0.4);
+    pointer-events: none; /* Garante que o clique passe direto para os inputs */
+}
+
+.pagina-create-playlist-exclusiva .btn-salvar {
+    background-color: #00bcd4;
+    color: #ffffff;
+}
+
+.pagina-create-playlist-exclusiva .btn-salvar:hover {
+    background-color: #0097a7;
+}
+
+.pagina-create-playlist-exclusiva .btn-cancelar {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.pagina-create-playlist-exclusiva .btn-cancelar:hover {
+    background-color: #444444;
+}
+
+.pagina-create-playlist-exclusiva .btn-acao-lista:active {
+    transform: scale(0.98);
+}
+/* ==========================================================================
+   CORREÇÃO DA TELA DE INÍCIO (WELCOME) - RETORNO DOS BOTÕES
+   ========================================================================== */
+
+/* ==========================================================================
+   ESTRUTURA BASE EXCLUSIVA (WELCOME E LOGIN) - ALINHAMENTO CORRETO
+   ========================================================================== */
+
+/* Limpa resquícios de fundo do sistema */
+html:has(.welcome-page-exclusiva), 
+body:has(.welcome-page-exclusiva) {
+    background: #141414 !important;
+    background-color: #141414 !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Define a página como uma pilha vertical nativa */
+.welcome-page-exclusiva {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+}
+
+/* Slider de imagens isolado no fundo */
+.welcome-page-exclusiva .bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.2s ease-in-out;
+    z-index: 9999 !important; 
+    filter: brightness(0.35);
+    pointer-events: none;
+}
+
+/* BARRA DE NAVEGAÇÃO DO TOPO - Fixada e visível */
+.welcome-page-exclusiva .welcome-nav {
+    position: relative;
+    z-index: 10000 !important;
+    width: 100%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    display: block !important; /* Garante que ela se comporte como bloco no topo */
+}
+
+.welcome-page-exclusiva .logo-text {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+}
+
+.welcome-page-exclusiva .logo-text span {
+    color: #00bcd4;
+}
+
+/* ==========================================================================
+   ELEMENTOS DA TELA DE INÍCIO (WELCOME)
+   ========================================================================== */
+/* ==========================================================================
+   ESTRUTURA BASE GLOBAL (WELCOME E LOGIN)
+   ========================================================================== */
+
+html:has(.welcome-page-exclusiva), 
+body:has(.welcome-page-exclusiva) {
+    background: #141414 !important;
+    background-color: #141414 !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Base da página - Configuração nativa voltada para a Tela Inicial */
+.welcome-page-exclusiva {
+    position: relative;
+    min-height: 120vh;
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Centraliza o bloco de conteúdo verticalmente na tela */
+    align-items: flex-start !important; /* Alinha todo o conteúdo estritamente à ESQUERDA */
+    overflow-y: auto !important;
+    box-sizing: border-box;
+}
+
+/* ISOLAMENTO DA TELA DE LOGIN: Quando a classe for detectada, muda o alinhamento para o centro */
+.welcome-page-exclusiva.pagina-login-exclusiva {
+    align-items: center !important;     /* Centraliza a caixinha horizontalmente */
+    justify-content: center !important; /* Centraliza a caixinha verticalmente */
+}
+
+/* Slider de imagens travado em background */
+.welcome-page-exclusiva .bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.2s ease-in-out;
+    z-index: 9999 !important; 
+    filter: brightness(0.35);
+    pointer-events: none;
+}
+
+/* Barra de navegação fixa no topo */
+.welcome-page-exclusiva .welcome-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000 !important;
+    width: 100%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+}
+
+.welcome-page-exclusiva .logo-text {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.welcome-page-exclusiva .logo-text span {
+    color: #00bcd4;
+}
+
+/* ==========================================================================
+   ELEMENTOS DA TELA DE INÍCIO (WELCOME) - ALINHAMENTO À ESQUERDA
+   ========================================================================== */
+
+.welcome-page-exclusiva .profile-selection-container {
+    position: relative;
+    z-index: 10000 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Mantém os textos e opções na esquerda */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto !important;          
+    text-align: left !important;
+    box-sizing: border-box;
+    padding: 0 80px;     
+    margin-top: 80px !important;               /* Distância elegante da borda esquerda da tela */
+}
+
+/* Título com largura máxima para forçar a quebra de linha correta */
+.welcome-page-exclusiva .welcome-title {
+    color: #ffffff;
+    font-size: 3.5rem;
+    margin: 0 0 10px 0 !important;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.85);
+    font-weight: bold;
+    text-align: left !important;
+    max-width: 500px;                   /* Força a quebra igual ao design anterior */
+    line-height: 1.2;
+}
+
+.welcome-page-exclusiva .welcome-phrase {
+    color: #e0e0e0;
+    font-size: 1.25rem;
+    margin: 0 0 40px 0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    text-align: left !important;
+}
+
+/* Box dos ícones organizados em linha no canto esquerdo */
+.welcome-page-exclusiva .profile-options {
+    display: flex !important;
+    justify-content: flex-start !important; 
+    align-items: center !important;
+    flex-direction: row !important; 
+    gap: 30px !important;                  
+    width: auto !important;
+    margin: 0 !important;                  
+    box-sizing: border-box;
+}
+
+.welcome-page-exclusiva .profile-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.welcome-page-exclusiva .profile-card:hover {
+    transform: scale(1.05);
+}
+
+/* Quadrado do ícone padrão */
+.welcome-page-exclusiva .profile-icon {
+    width: 125px;
+    height: 125px;
+    border-radius: 14px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: rgba(15, 15, 15, 0.75) !important; 
+    border: 2px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.welcome-page-exclusiva .profile-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Efeito do bloco se tornar azul completo no Hover */
+.welcome-page-exclusiva .profile-card:hover .profile-icon {
+    border-color: #00bcd4 !important;
+    background-color: #00bcd4 !important;                 
+    color: #ffffff !important;                             
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.7) !important; 
+}
+
+.welcome-page-exclusiva .profile-name {
+    margin-top: 15px !important;
+    color: #ffffff !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+    text-align: center;
+}
+
+/* ==========================================================================
+   FORMULÁRIO DE LOGIN / CADASTRO (CAIXA CENTRALIZADA)
+   ========================================================================== */
+
+.welcome-page-exclusiva .formulario-container {
+    position: relative;
+    z-index: 10000 !important; 
+    background: rgba(15, 15, 15, 0.93) !important;
+    padding: 50px 40px;
+    border-radius: 15px;
+    max-width: 450px; 
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 auto !important; 
+}
+
+/* Título ENTRAR na cor branca */
+.welcome-page-exclusiva .formulario-container h2 {
+    color: #ffffff !important; 
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 35px;
+    text-align: center !important; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.welcome-page-exclusiva .formulario-container form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    box-sizing: border-box !important;
+}
+
+.welcome-page-exclusiva .form-group {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+.welcome-page-exclusiva .form-group input {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+}
+
+.welcome-page-exclusiva .form-group input:focus {
+    outline: none !important;
+    border-color: #00bcd4 !important;
+}
+
+/* Botão em tom de azul mais destacado */
+.welcome-page-exclusiva .btn-login {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    background-color: #0056b3 !important; /* Azul sólido clássico */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    display: block !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    margin-top: 10px !important;
+    transition: background-color 0.2s ease, transform 0.1s ease !important;
+}
+
+.welcome-page-exclusiva .btn-login:hover {
+    background-color: #004085 !important; /* Azul escuro ao passar o mouse */
+}
+
+.welcome-page-exclusiva .login-links {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+    box-sizing: border-box !important;
+}
+
+.welcome-page-exclusiva .login-links a {
+    color: #b3b3b3 !important;
+    font-size: 0.9rem !important;
+    text-decoration: none !important;
+}
+
+.welcome-page-exclusiva .login-links a:hover {
+    color: #00bcd4 !important;
+    text-decoration: underline !important;
+}
+
+/* ==========================================================================
+   ESTRUTURA BASE GLOBAL (WELCOME, LOGIN E CADASTRO)
+   ========================================================================== */
+
+html:has(.welcome-page-exclusiva), 
+html:has(.login-container),
+body:has(.welcome-page-exclusiva),
+body:has(.login-container) {
+    background: #141414 !important;
+    background-color: #141414 !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Base da página - Configuração nativa voltada para a Tela Inicial */
+.welcome-page-exclusiva {
+    position: relative;
+    min-height: 120vh; /* Força a altura para permitir rolagem */
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Ajustado para respeitar a margem do topo */
+    align-items: flex-start !important; /* Home: Tudo alinhado à ESQUERDA */
+    overflow-y: auto !important; /* Garante que a barra de rolagem apareça se necessário */
+    box-sizing: border-box;
+}
+
+/* ISOLAMENTO TELA DE LOGIN E CADASTRO: Centraliza as caixinhas no meio do monitor */
+.welcome-page-exclusiva.pagina-login-exclusiva,
+.login-container {
+    position: relative;
+    min-height: 120vh; /* Força a altura de 120% da tela para permitir rolagem */
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;     /* Centraliza horizontalmente */
+    justify-content: center !important; /* Centraliza verticalmente */
+    overflow-y: auto !important;        /* Ativa a rolagem */
+    box-sizing: border-box;
+    padding: 60px 20px;                 /* Garante um espaço de respiro nas bordas ao rolar */
+}
+
+/* Slider de imagens travado em background */
+.welcome-page-exclusiva .bg-slider,
+.login-container .bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.2s ease-in-out;
+    z-index: 9999 !important; 
+    filter: brightness(0.35);
+    pointer-events: none;
+}
+
+/* Barra de navegação fixa no topo */
+.welcome-page-exclusiva .welcome-nav,
+.login-container .welcome-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000 !important;
+    width: 100%;
+    padding: 30px 50px;
+    box-sizing: border-box;
+}
+
+.welcome-page-exclusiva .logo-text,
+.login-container .logo-text {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.welcome-page-exclusiva .logo-text span,
+.login-container .logo-text span {
+    color: #00bcd4;
+}
+
+/* ==========================================================================
+   ELEMENTOS DA TELA DE INÍCIO (WELCOME) - ALINHAMENTO À ESQUERDA
+   ========================================================================== */
+
+.welcome-page-exclusiva .profile-selection-container {
+    position: relative;
+    z-index: 10000 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; 
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto !important;          
+    text-align: left !important;
+    box-sizing: border-box;
+    padding: 0 80px;                    
+    margin-top: 140px !important;       /* Aumentado o espaço do topo para afastar do logo */
+    margin-bottom: 60px !important;
+}
+
+.welcome-page-exclusiva .welcome-title {
+    color: #ffffff;
+    font-size: 3.5rem;
+    margin: 0 0 10px 0 !important;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.85);
+    font-weight: bold;
+    text-align: left !important;
+    max-width: 500px;                   
+    line-height: 1.2;
+}
+
+.welcome-page-exclusiva .welcome-phrase {
+    color: #e0e0e0;
+    font-size: 1.25rem;
+    margin: 0 0 40px 0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    text-align: left !important;
+}
+
+.welcome-page-exclusiva .profile-options {
+    display: flex !important;
+    justify-content: flex-start !important; 
+    align-items: center !important;
+    flex-direction: row !important; 
+    gap: 30px !important;                  
+    width: auto !important;
+    margin: 0 !important;                  
+    box-sizing: border-box;
+}
+
+.welcome-page-exclusiva .profile-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.welcome-page-exclusiva .profile-card:hover {
+    transform: scale(1.05);
+}
+
+.welcome-page-exclusiva .profile-icon {
+    width: 125px;
+    height: 125px;
+    border-radius: 14px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: rgba(15, 15, 15, 0.75) !important; 
+    border: 2px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.welcome-page-exclusiva .profile-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.welcome-page-exclusiva .profile-card:hover .profile-icon {
+    border-color: #00bcd4 !important;
+    background-color: #00bcd4 !important;                 
+    color: #ffffff !important;                             
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.7) !important; 
+}
+
+.welcome-page-exclusiva .profile-name {
+    margin-top: 15px !important;
+    color: #ffffff !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+    text-align: center;
+}
+
+/* ==========================================================================
+   FORMULÁRIOS DE LOGIN E CADASTRO (DESIGN IDÊNTICO E CENTRALIZADO)
+   ========================================================================== */
+
+/* Unifica as duas estruturas de caixas escuras */
+.welcome-page-exclusiva .formulario-container,
+.login-container .login-card {
+    position: relative;
+    z-index: 10000 !important; 
+    background: rgba(15, 15, 15, 0.93) !important;
+    padding: 50px 40px;
+    border-radius: 15px;
+    max-width: 450px; 
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 auto !important; 
+}
+
+/* Títulos h2 em Branco */
+.welcome-page-exclusiva .formulario-container h2,
+.login-container .login-card h2 {
+    color: #ffffff !important; 
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 35px;
+    text-align: center !important; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Alinhamento dos formulários internos */
+.welcome-page-exclusiva .formulario-container form,
+.login-container .login-card form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Blocos de grupo de input */
+.welcome-page-exclusiva .form-group,
+.login-container .form-group {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+/* Inputs retos e idênticos */
+.welcome-page-exclusiva .form-group input,
+.login-container .form-group input {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+}
+
+.welcome-page-exclusiva .form-group input:focus,
+.login-container .form-group input:focus {
+    outline: none !important;
+    border-color: #00bcd4 !important;
+}
+
+/* Mensagens de erro de validação */
+.welcome-page-exclusiva .erro-mensagem,
+.login-container .form-group span {
+    color: #ff4a4a !important;
+    font-size: 0.85rem !important;
+    margin-top: 5px !important;
+    text-align: left !important;
+    display: block !important;
+}
+
+/* Botão Azul Sólido e Marcante */
+.welcome-page-exclusiva .btn-login,
+.login-container .btn-login {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    background-color: #0056b3 !important; 
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    display: block !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    margin-top: 10px !important;
+    transition: background-color 0.2s ease, transform 0.1s ease !important;
+}
+
+.welcome-page-exclusiva .btn-login:hover,
+.login-container .btn-login:hover {
+    background-color: #004085 !important; 
+}
+
+/* Links do Rodapé */
+.welcome-page-exclusiva .login-links,
+.login-container .login-links {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 15px !important;
+    box-sizing: border-box !important;
+}
+
+.welcome-page-exclusiva .login-links a,
+.login-container .login-links a {
+    color: #b3b3b3 !important;
+    font-size: 0.9rem !important;
+    text-decoration: none !important;
+}
+
+.welcome-page-exclusiva .login-links a:hover,
+.login-container .login-links a:hover {
+    color: #00bcd4 !important;
+    text-decoration: underline !important;
+}

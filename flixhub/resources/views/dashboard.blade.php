@@ -1,19 +1,20 @@
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel - Flixhub</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<div class="login-container dashboard-wrapper">
+<div class="dashboard-wrapper">
     <div id="bgSlider" class="bg-slider"></div>
 
-<nav class="navbar-painel">
+    <nav class="navbar-painel">
         <div class="nav-container-painel">
             <a href="{{ route('filmes.index') }}" class="nav-logo">Flix<span>Hub</span></a>
             
             <ul class="nav-menu">
                 <li>
-                    <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form" class="form-hidden">
                         @csrf
                     </form>
                     <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -23,10 +24,11 @@
             </ul>
         </div>
     </nav>
+
     <div class="dashboard-menu-container">
         <h1 class="dashboard-title">O que vamos gerenciar hoje?</h1>
         
-        <div class="menu-grid">
+        <div class="painel-grid">
             <a href="{{ route('filmes.index') }}" class="menu-card">
                 <div class="card-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -80,10 +82,10 @@
         const imagens = [
             "/img/imagem1.jpg", "/img/imagem2.jpg", "/img/imagem3.jpg",
             "/img/imagem8.jpg", "/img/imagem9.jpg", "/img/imagem10.jpg",
-            "/img/img5.jpg", "/img/img6.jpg", "/img/img7.jpg",
-            "/img/img8.jpg", "/img/imagem4.jpg", "/img/imagem5.jpg",
-            "/img/img11.jpg", "/img/img12.jpg", "/img/img13.jpg",
-            "/img/imagem6.jpg", "/img/img15.jpg", "/img/img16.jpg",
+            "/img/img5.jpg",    "/img/img6.jpg",    "/img/img7.jpg",
+            "/img/img8.jpg",    "/img/imagem4.jpg", "/img/imagem5.jpg",
+            "/img/img11.jpg",   "/img/img12.jpg",   "/img/img13.jpg",
+            "/img/imagem6.jpg", "/img/img15.jpg",   "/img/img16.jpg",
             "/img/imagem7.jpg"
         ];
 

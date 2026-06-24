@@ -1,13 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Flixhub</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+<body>
 
-<div class="login-container">
+<div class="welcome-page-exclusiva pagina-login-exclusiva">
     <div id="bgSlider" class="bg-slider"></div>
 
-    <div class="login-card">
+    <div class="login-card formulario-container">
         <h2>Entrar</h2>
 
         <form method="POST" action="{{ route('login') }}">
@@ -15,12 +19,12 @@
 
             <div class="form-group">
                 <input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required autofocus>
-                @error('email') <span>{{ $message }}</span> @enderror
+                @error('email') <span class="erro-mensagem">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <input type="password" name="password" placeholder="Senha" required autocomplete="current-password">
-                @error('password') <span>{{ $message }}</span> @enderror
+                @error('password') <span class="erro-mensagem">{{ $message }}</span> @enderror
             </div>
 
             <button type="submit" class="btn-login">Entrar</button>
@@ -63,11 +67,16 @@
         let index = 0;
 
         function mudarFundo() {
-            slider.style.backgroundImage = `url('${imagens[index]}')`;
-            index = (index + 1) % imagens.length;
+            if (slider) {
+                slider.style.backgroundImage = `url('${imagens[index]}')`;
+                index = (index + 1) % imagens.length;
+            }
         }
 
         mudarFundo();
         setInterval(mudarFundo, 5000); // Troca a cada 5 segundos
     });
 </script>
+
+</body>
+</html>
