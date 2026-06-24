@@ -8,75 +8,74 @@
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
-        <ul class="nav-menu">
-            <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
-            <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
-            <li><a href="/series" class="nav-link">Séries</a></li>
-            <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-            
-            <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
-            
-            <li><a href="/busca" class="nav-link">Lista</a></li>
-            
-            <li>
-                <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" style="display: none;">
-                    @csrf
-                </form>
-                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
-                    Sair
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
+            <ul class="nav-menu">
+                <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
+                <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
+                <li><a href="/series" class="nav-link">Séries</a></li>
+                <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+                <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
+                <li><a href="/busca" class="nav-link">Lista</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="form-container">
             <h1>✏️ Editar Filme</h1>
 
             <form action="/filmes/{{ $filme->id }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT') <div class="form-group">
-        <label for="titulo">Título do Filme</label>
-        <input type="text" id="titulo" name="titulo" class="form-control" value="{{ $filme->titulo }}" required>
-    </div>
+                @csrf
+                @method('PUT')
 
-    <div class="form-group">
-    <label for="genero">Gênero</label>
-    <select id="genero" name="genero" class="form-control" required>
-        <option value="Ação" {{ $filme->genero == 'Ação' ? 'selected' : '' }}>Ação</option>
-        <option value="Comédia" {{ $filme->genero == 'Comédia' ? 'selected' : '' }}>Comédia</option>
-        <option value="Drama" {{ $filme->genero == 'Drama' ? 'selected' : '' }}>Drama</option>
-        <option value="Ficção Científica" {{ $filme->genero == 'Ficção Científica' ? 'selected' : '' }}>Ficção Científica</option>
-        <option value="Terror" {{ $filme->genero == 'Terror' ? 'selected' : '' }}>Terror</option>
-        <option value="Romance" {{ $filme->genero == 'Romance' ? 'selected' : '' }}>Romance</option>
-        <option value="Documentário" {{ $filme->genero == 'Documentário' ? 'selected' : '' }}>Documentário</option>
-        <option value="Animação" {{ $filme->genero == 'Animação' ? 'selected' : '' }}>Animação</option>
-    </select>
-</div>
+                <div class="form-group">
+                    <label for="titulo">Título do Filme</label>
+                    <input type="text" id="titulo" name="titulo" class="form-control" value="{{ $filme->titulo }}" required>
+                </div>
 
-    <div class="form-group">
-        <label for="imagem">Alterar Cartaz (Deixe vazio para manter o atual)</label>
-        <input type="file" id="imagem" name="imagem" class="form-control" accept="image/*">
-    </div>
+                <div class="form-group">
+                    <label for="genero">Gênero</label>
+                    <select id="genero" name="genero" class="form-control" required>
+                        <option value="Ação" {{ $filme->genero == 'Ação' ? 'selected' : '' }}>Ação</option>
+                        <option value="Comédia" {{ $filme->genero == 'Comédia' ? 'selected' : '' }}>Comédia</option>
+                        <option value="Drama" {{ $filme->genero == 'Drama' ? 'selected' : '' }}>Drama</option>
+                        <option value="Ficção Científica" {{ $filme->genero == 'Ficção Científica' ? 'selected' : '' }}>Ficção Científica</option>
+                        <option value="Terror" {{ $filme->genero == 'Terror' ? 'selected' : '' }}>Terror</option>
+                        <option value="Romance" {{ $filme->genero == 'Romance' ? 'selected' : '' }}>Romance</option>
+                        <option value="Documentário" {{ $filme->genero == 'Documentário' ? 'selected' : '' }}>Documentário</option>
+                        <option value="Animação" {{ $filme->genero == 'Animação' ? 'selected' : '' }}>Animação</option>
+                    </select>
+                </div>
 
-    <div class="form-group">
-        <label for="descricao">Sinopse / Descrição</label>
-        <textarea id="descricao" name="descricao" class="form-control" rows="4" required>{{ $filme->descricao }}</textarea>
-    </div>
+                <div class="form-group">
+                    <label for="imagem">Alterar Cartaz (Deixe vazio para manter o atual)</label>
+                    <input type="file" id="imagem" name="imagem" class="form-control" accept="image/*">
+                </div>
 
-    <div class="form-group">
-        <label for="nota">Nota</label>
-        <input type="number" id="nota" name="nota" class="form-control" min="0" max="10" step="0.1" value="{{ $filme->nota }}" required>
-    </div>
+                <div class="form-group">
+                    <label for="descricao">Sinopse / Descrição</label>
+                    <textarea id="descricao" name="descricao" class="form-control" rows="4" required>{{ $filme->descricao }}</textarea>
+                </div>
 
-    <button type="submit" class="btn-salvar">Atualizar Filme</button>
-</form>
+                <div class="form-group">
+                    <label for="nota">Nota</label>
+                    <input type="number" id="nota" name="nota" class="form-control" min="0" max="5" step="0.1" value="{{ $filme->nota }}" required>
+                </div>
 
-            <a href="/filmes" class="btn-cancelar">Voltar para a Lista</a>
+                <button type="submit" class="btn-salvar">Atualizar Filme</button>
+            </form>
+
+            <a href="/filmes" class="btn-retornar-lista">Voltar para a Lista</a>
         </div>
     </div>
 

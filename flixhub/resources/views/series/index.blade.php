@@ -35,7 +35,7 @@
 
     <div class="container conteudo-pagina-fixa">
 
-        <div class="alerta-container">
+        <div class="alerta-container" id="alertaContainer">
             @if(session('success'))
                 <div class="alerta alerta-sucesso">
                     ✅ {{ session('success') }}
@@ -126,6 +126,7 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const imagens = [
@@ -152,13 +153,9 @@
         setInterval(mudarFundo, 5000);
 
         const alertaContainer = document.getElementById("alertaContainer");
-        if (alertaContainer && alertaContainer.children.length > 0) {
+        if (alertaContainer) {
             setTimeout(function() {
-                alertaContainer.style.transition = "opacity 0.5s ease";
-                alertaContainer.style.opacity = "0";
-                setTimeout(function() {
-                    alertaContainer.remove();
-                }, 500);
+                alertaContainer.style.display = "none";
             }, 4000);
         }
     });

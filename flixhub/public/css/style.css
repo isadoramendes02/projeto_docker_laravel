@@ -1729,3 +1729,266 @@ ESTILIZAÇÃO DA TABELA COMPLETA DE MINHA LISTA
         transform: translateY(0);
     }
 }
+.card-formulario {
+    background: rgba(0, 0, 0, 0.75);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 50px auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.titulo-formulario {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.subtitulo-item-favorito {
+    color: #1e40af;
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.form-grupo {
+    margin-bottom: 20px;
+}
+
+.form-grupo label {
+    display: block;
+    color: #aaa;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-control {
+    width: 100%;
+    background: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #1e40af;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-confirmar {
+    background: #1e40af;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex: 1;
+    font-weight: bold;
+}
+
+.btn-confirmar:hover {
+    background: #1e3a8a;
+}
+
+.btn-container .btn-excluir {
+    flex: 1;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.titulo-formulario-nota {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.subtitulo-item-nota {
+    color: #1e40af;
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.btn-container-nota {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn-salvar-nota {
+    background: #1e40af;
+    color: white;
+    padding: 0;
+    margin: 0;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex: 1;
+    font-weight: bold;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.btn-salvar-nota:hover {
+    background: #1e3a8a;
+}
+
+.btn-cancelar-nota {
+    flex: 1;
+    font-weight: bold;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    background-color: #1e40af;
+    color: white;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.btn-cancelar-nota:hover {
+    background-color: #1e3a8a;
+}
+
+.card-filme {
+    position: relative;
+}
+
+.wrapper-tags-favoritos {
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 5px;
+}
+
+.tag-tipo {
+    font-size: 0.75rem; 
+    color: #fff; 
+    background: #1e40af; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    font-weight: bold;
+}
+
+.balao-comentario {
+    margin-top: 1rem; 
+    background: rgba(255, 255, 255, 0.05); 
+    padding: 10px; 
+    border-radius: 4px; 
+    border-left: 3px solid #1e3a8a; 
+}
+
+.balao-comentario__titulo {
+    font-size: 0.75rem;
+    color: #aaa;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.balao-comentario__texto {
+    font-size: 0.85rem;
+    color: #eee;
+    margin: 0;
+    font-style: italic;
+}
+
+.botoes-acoes {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 1rem;
+    width: 100%;
+}
+
+.botoes-acoes form {
+    flex: 1;
+}
+
+.botoes-acoes .btn-editar {
+    flex: 1;
+    text-align: center;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.botoes-acoes .btn-excluir {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.botoes-acoes--unico .btn-editar {
+    width: 100%;
+}
+.preview-video-container {
+    display: none;
+    margin-top: 15px;
+}
+
+.video-preview-elemento {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+    background: #000;
+}
+
+.btn-container-playlist {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-cancelar-playlist {
+    flex: 1;
+    font-weight: bold;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    transition: background 0.2s;
+    font-size: 1rem;
+}
+
+.btn-cancelar-playlist:hover {
+    background-color: #444;
+}
+
+.aviso-video-existente {
+    color: var(--texto-escuro); 
+    margin-top: 5px; 
+    display: block;
+}

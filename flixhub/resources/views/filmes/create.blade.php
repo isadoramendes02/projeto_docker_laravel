@@ -7,30 +7,29 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
+
     <nav class="navbar">
-    <div class="nav-container">
-        <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
-        <ul class="nav-menu">
-            <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
-            <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
-            <li><a href="/series" class="nav-link">Séries</a></li>
-            <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-            
-            <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
-            
-            <li><a href="/busca" class="nav-link">Lista</a></li>
-            
-            <li>
-                <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" style="display: none;">
-                    @csrf
-                </form>
-                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
-                    Sair
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+        <div class="nav-container">
+            <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
+            <ul class="nav-menu">
+                <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
+                <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
+                <li><a href="/series" class="nav-link">Séries</a></li>
+                <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+                <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
+                <li><a href="/busca" class="nav-link">Lista</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form-dash">
+                        @csrf
+                    </form>
+                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="form-container">
             <h1>🎬 Adicionar Filme</h1>
@@ -44,18 +43,18 @@
                 </div>
 
                 <div class="form-group">
-                <label for="genero">Gênero</label>
-                <select id="genero" name="genero" class="form-control" required>
-                    <option value="" disabled selected>Selecione um gênero</option>
-                    <option value="Ação">Ação</option>
-                    <option value="Comédia">Comédia</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Ficção Científica">Ficção Científica</option>
-                    <option value="Terror">Terror</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Documentário">Documentário</option>
-                    <option value="Animação">Animação</option>
-                </select>
+                    <label for="genero">Gênero</label>
+                    <select id="genero" name="genero" class="form-control" required>
+                        <option value="" disabled selected>Selecione um gênero</option>
+                        <option value="Ação">Ação</option>
+                        <option value="Comédia">Comédia</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Ficção Científica">Ficção Científica</option>
+                        <option value="Terror">Terror</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Documentário">Documentário</option>
+                        <option value="Animação">Animação</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -76,7 +75,7 @@
                 <button type="submit" class="btn-salvar">Salvar Filme</button>
             </form>
 
-            <a href="/filmes" class="btn-cancelar">Voltar para a Lista</a>
+            <a href="/filmes" class="btn-retornar-lista">Voltar para a Lista</a>
         </div>
     </div>
 
