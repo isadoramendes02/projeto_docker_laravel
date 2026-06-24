@@ -14,9 +14,14 @@ class Busca extends Model
 
     // Libera os campos para serem salvos no banco
     protected $fillable = [
-    'titulo_obra',
-    'comentario',
     'user_id',
-    'status'
+    'titulo_obra',
+    'tipo',
+    'genero',
+    'nota',
+    'favorito',
+    'imagem',
+    'comentario',
+    'status',
 ];
 }

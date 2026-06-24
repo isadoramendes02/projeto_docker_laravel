@@ -33,7 +33,7 @@
 <div class="container">
     
     <div class="secao-busca">
-        <h1>Pesquise por Titulo ou Categoria 🔍</h1>
+        <h1>Pesquise por Título ou Categoria 🔍</h1>
         <form action="{{ route('busca.index') }}" method="GET" class="barra-busca-container">
             <input type="text" name="query" value="{{ $termo ?? '' }}" placeholder="Ex: Ação, Drama, Batman..." class="input-busca" required>
             <button type="submit" class="btn-busca">Buscar</button>
@@ -41,171 +41,102 @@
     </div>
 
     @if(isset($termo) && $termo)
-        <h2 class="titulo-secao">Resultados encontrados:</h2>
+        <h2 class="titulo-secao">Resultados encontrados: {{ $resultados->count() }}</h2>
 
-      @foreach($resultados as $item)
+        @foreach($resultados as $item)
+            <div class="resultado-card">
+                <div class="resultado-imagem">
+                    <img src="{{ $item->imagem ? asset('storage/' . $item->imagem) : asset('img/sem-foto.jpg') }}" class="resultado-cartaz" alt="{{ $item->titulo }}">
+                </div>
 
-<div class="resultado-card">
+                <div class="resultado-info">
+                    <h2 class="resultado-titulo">{{ $item->titulo }}</h2>
+                    <p><strong>🎬 Tipo:</strong> {{ ucfirst($item->tipo) }}</p>
+                    <p><strong>🏷️ Gênero:</strong> {{ $item->genero }}</p>
+                    <p><strong>⭐ Nota:</strong> {{ $item->nota }}</p>
+                    <p><strong>❤️ Favorito:</strong> {{ $item->favorito ? 'Sim' : 'Não' }}</p>
+                    
+                    <h4 class="resultado-descricao-titulo">📝 Descrição</h4>
+                    <p class="resultado-descricao">{{ $item->descricao }}</p>
 
-<div class="resultado-imagem">
-    <img
-        src="{{ $item->imagem ? asset('storage/' . $item->imagem) : asset('img/sem-foto.jpg') }}"
-        class="resultado-cartaz"
-        alt="{{ $item->titulo }}"
-    >
-</div>
+                    <div class="btn-acoes-container">
+                        <a href="{{ route('busca.create', ['titulo' => $item->titulo, 'tipo' => $item->tipo]) }}" class="btn-acao-lista btn-salvar-lista">
+                            ➕ Adicionar à Lista
+                        </a>
+                        <a href="{{ route('busca.index') }}" class="btn-acao-lista btn-cancelar-lista">
+                            ❌ Cancelar
+                        </a>
+                    </div>
+                </div>
 
-<div class="resultado-info">
-
-    <h2 class="resultado-titulo">
-        {{ $item->titulo }}
-    </h2>
-
-    <p>
-        <strong>🎬 Tipo:</strong>
-        {{ ucfirst($item->tipo) }}
-    </p>
-
-    <p>
-        <strong>🏷️ Gênero:</strong>
-        {{ $item->genero }}
-    </p>
-
-    <p>
-        <strong>⭐ Nota:</strong>
-        {{ $item->nota }}
-    </p>
-
-    <p>
-        <strong>❤️ Favorito:</strong>
-        {{ $item->favorito ? 'Sim' : 'Não' }}
-    </p>
-
-    <h4 class="resultado-descricao-titulo">
-        📝 Descrição
-    </h4>
-
-    <p class="resultado-descricao">
-        {{ $item->descricao }}
-    </p>
-
-    <div class="resultado-status">
-
-        <label
-            for="status-{{ $item->id }}"
-            class="label-status">
-
-            Escolher status:
-
-        </label>
-
-        <select
-            id="status-{{ $item->id }}"
-            name="status"
-            class="select-status">
-
-            <option value="" disabled selected>
-                Selecione uma opção
-            </option>
-
-            <option value="ja-assistido">
-                Já assistido
-            </option>
-
-            <option value="quero-assistir">
-                Quero assistir
-            </option>
-
-            <option value="abandonei">
-                Abandonei
-            </option>
-
-            <option value="falta-terminar">
-                Falta terminar
-            </option>
-
-        </select>
-
-    </div>
-
-    <div class="resultado-botoes">
-
-        <a
-            href="{{ route('busca.create', ['titulo' => $item->titulo, 'tipo' => $item->tipo]) }}"
-            class="btn-azul">
-
-            ➕ Salvar na Lista
-
-        </a>
-
-        <a
-            href="{{ route('busca.index') }}"
-            class="btn-vermelho">
-
-            ❌ Cancelar
-
-        </a>
-
-    </div>
-
-</div>
-
-@if($item->trailer)
-
-<div class="resultado-trailer">
-
-    <h4>🎥 Trailer</h4>
-
-    <video
-        class="video-trailer"
-        controls>
-
-        <source
-            src="{{ asset($item->trailer) }}"
-            type="video/mp4">
-
-    </video>
-
-</div>
-
-@endif
-
-</div>
-
-@endforeach
+                @if($item->trailer)
+                    <div class="resultado-trailer">
+                        <h4>🎥 Trailer</h4>
+                        <video class="video-trailer" controls>
+                            <source src="{{ asset($item->trailer) }}" type="video/mp4">
+                        </video>
+                    </div>
+                @endif
+            </div>
+        @endforeach
     @endif
 
     <div class="secao-lista">
-        <h2>🍿 Minha Lista</h2>
+        <h2>🍿 Minha Lista Completa</h2>
         
         @if($minhaLista->isEmpty())
             <p class="lista-vazia-texto">Sua lista está vazia. Pesquise acima para adicionar títulos!</p>
         @else
-            <table class="tabela-lista">
-                <thead>
-                    <tr>
-                        <th>Filme / Série</th>
-                        <th>Meu Comentário</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($minhaLista as $linha)
-                        <tr>
-                            <td class="coluna-titulo-obra">{{ $linha->titulo_obra }}</td>
-                            <td>{{ $linha->comentario }}</td>
-                            <td>
-                                <a href="{{ route('busca.edit', $linha->id) }}" class="btn-azul">Editar</a>
-                                <form action="{{ route('busca.destroy', $linha->id) }}" method="POST" class="form-deletar">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-vermelho" onclick="return confirm('Remover da lista?')">Deletar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            @foreach($minhaLista as $linha)
+                <div class="resultado-card card-salvo">
+                    <div class="resultado-imagem">
+                        <img src="{{ $linha->imagem ? asset('storage/' . $linha->imagem) : asset('img/sem-foto.jpg') }}" class="resultado-cartaz" alt="{{ $linha->titulo_obra }}">
+                    </div>
+
+                    <div class="resultado-info">
+                        <h2 class="resultado-titulo">{{ $linha->titulo_obra }}</h2>
+                        <p><strong>🎬 Tipo:</strong> {{ $linha->tipo ?? 'Não informado' }}</p>
+                        <p><strong>🏷️ Gênero:</strong> {{ $linha->genero ?? '-' }}</p>
+                        <p><strong>⭐ Nota:</strong> {{ $linha->nota ?? '-' }}</p>
+                        <p><strong>❤️ Favorito:</strong> {{ $linha->favorito ? 'Sim' : 'Não' }}</p>
+                        
+                        <p>
+                            <strong>📌 Status:</strong> 
+                            @if($linha->status == 'ja-assistido') <span class="status-tag status-ja-assistido">Já assistido</span>
+                            @elseif($linha->status == 'quero-assistir') <span class="status-tag status-quero-assistir">Quero assistir</span>
+                            @elseif($linha->status == 'abandonei') <span class="status-tag status-abandonei">Abandonei</span>
+                            @elseif($linha->status == 'falta-terminar') <span class="status-tag status-falta-terminar">Falta terminar</span>
+                            @else <span class="status-tag">{{ $linha->status }}</span>
+                            @endif
+                        </p>
+
+                        <h4 class="resultado-descricao-titulo">💬 Meu Comentário</h4>
+                        <p class="resultado-comentario-texto">{{ $linha->comentario }}</p>
+
+                        <div class="btn-acoes-container">
+                            <a href="{{ route('busca.edit', $linha->id) }}" class="btn-acao-lista btn-salvar-lista" style="background-color: #2563eb !important;">
+                                ✏️ Editar
+                            </a>
+                            <form action="{{ route('busca.destroy', $linha->id) }}" method="POST" class="form-deletar" style="flex: 1; display: flex;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-acao-lista btn-cancelar-lista" onclick="return confirm('Remover da lista?')" style="width: 100%;">
+                                    🗑️ Deletar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    @if($linha->trailer)
+                        <div class="resultado-trailer">
+                            <h4>🎥 Trailer</h4>
+                            <video class="video-trailer" controls>
+                                <source src="{{ asset($linha->trailer) }}" type="video/mp4">
+                            </video>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
         @endif
     </div>
 </div>

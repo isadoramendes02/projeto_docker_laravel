@@ -7,16 +7,11 @@
 <div class="login-container dashboard-wrapper">
     <div id="bgSlider" class="bg-slider"></div>
 
-    <nav class="navbar">
-        <div class="nav-container">
+<nav class="navbar-painel">
+        <div class="nav-container-painel">
             <a href="{{ route('filmes.index') }}" class="nav-logo">Flix<span>Hub</span></a>
+            
             <ul class="nav-menu">
-                <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
-                <li><a href="{{ route('filmes.index') }}" class="nav-link">Filmes</a></li>
-                <li><a href="{{ route('series.index') }}" class="nav-link">Séries</a></li>
-                <li><a href="{{ route('favoritos.index') }}" class="nav-link">Favoritos</a></li>
-                <li><a href="{{ route('busca.index') }}" class="nav-link">Lista</a></li>
-                
                 <li>
                     <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
                         @csrf
@@ -28,7 +23,6 @@
             </ul>
         </div>
     </nav>
-
     <div class="dashboard-menu-container">
         <h1 class="dashboard-title">O que vamos gerenciar hoje?</h1>
         
@@ -58,6 +52,15 @@
                     </svg>
                 </div>
                 <span class="card-text">Favoritos</span>
+            </a>
+
+            <a href="{{ route('playlists.index') }}" class="menu-card">
+                <div class="card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                </div>
+                <span class="card-text">Trailer</span>
             </a>
 
             <a href="{{ route('busca.index') }}" class="menu-card">

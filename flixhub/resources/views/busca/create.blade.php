@@ -30,48 +30,21 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="formulario-container">
-        <h2>Adicionar à Minha Lista</h2>
-        
-        @if($obra)
-            <div class="card-detalhado">
-                <img src="{{ $obra->imagem ? asset('storage/'.$obra->imagem) : asset('img/sem-foto.jpg') }}" alt="{{ $obra->titulo }}">
+<div class="container container-centralizado">
+    
+    <div class="secao-formulario">
+        <h2 class="titulo-formulario">➕ Adicionar Item à Minha Lista</h2>
 
-                <div class="card-info">
-                    <h2>{{ $obra->titulo }}</h2>
-                    <p><strong>🎬 Tipo:</strong> {{ $obra->tipo }}</p>
-                    <p><strong>🏷️ Gênero:</strong> {{ $obra->genero }}</p>
-                    <p><strong>⭐ Nota:</strong> {{ $obra->nota }}</p>
-                    <p><strong>❤️ Favorito:</strong> {{ $obra->favorito ? 'Sim' : 'Não' }}</p>
-
-                    <div class="card-descricao">
-                        <strong>📝 Descrição:</strong>
-                        <p>{{ $obra->descricao }}</p>
-                    </div>
-
-                    @if($playlist)
-                        <div class="trailer-box">
-                            <h4>🎥 Trailer</h4>
-                            <video class="trailer-video" controls>
-                                <source src="{{ asset($playlist->trailer) }}" type="video/mp4">
-                            </video>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        @endif
-            
         <form action="{{ route('busca.store') }}" method="POST">
             @csrf
             
             <div class="campo-grupo">
                 <label>Título do Filme/Série:</label>
-                <input type="text" name="titulo_obra" value="{{ request('titulo') }}" class="input-form" readonly>
+                <input type="text" name="titulo_obra" value="{{ $titulo }}" class="input-form" readonly>
             </div>
 
             <div class="campo-grupo">
-                <label for="status">Escolher status</label>
+                <label for="status">Escolher status:</label>
                 <select name="status" id="status" class="select-form" required>
                     <option value="" disabled selected>Selecione uma opção</option>
                     <option value="ja-assistido">Já assistido</option>
@@ -82,20 +55,21 @@
             </div>
 
             <div class="campo-grupo">
-                <label>Escreva seu comentário/crítica:</label>
-                <textarea name="comentario" class="textarea-form" placeholder="O que você achou dessa produção?" required></textarea>
+                <label for="comentario">Escreva seu comentário/crítica:</label>
+                <textarea name="comentario" id="comentario" class="textarea-form" placeholder="O que você achou dessa produção?" required></textarea>
             </div>
 
-            <div class="btn-container">
+            <div class="btn-container-form">
                 <button type="submit" class="btn-form btn-salvar">
-                    Salvar na Lista
+                    💾 Salvar na Lista
                 </button>
                 <a href="{{ route('busca.index') }}" class="btn-form btn-cancelar">
-                    Cancelar
+                    ❌ Cancelar
                 </a>
             </div>
         </form>
     </div>
+
 </div>
 
 </body>

@@ -5,39 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlixHub - Minhas Séries</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <style>
-        body { background-image: url("{{ asset('img/fundo4.jpg') }}") !important; }
-        /* Garante o posicionamento correto da estrela sobre o cartaz */
-        .card-filme { position: relative; }
-    </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
-        <ul class="nav-menu">
-            <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
-            <li><a href="/filmes" class="nav-link">Filmes</a></li>
-            <li><a href="/series" class="nav-link ativo">Séries</a></li>
-            <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-            
-            <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
-            
-            <li><a href="/busca" class="nav-link">Lista</a></li>
-            
-            <li>
-                <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" style="display: none;">
-                    @csrf
-                </form>
-                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
-                    Sair
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
 
-    <div class="container">
+<div class="dashboard-wrapper">
+    <div id="bgSlider" class="bg-slider"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
+            <ul class="nav-menu">
+                <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
+                <li><a href="/filmes" class="nav-link">Filmes</a></li>
+                <li><a href="/series" class="nav-link ativo">Séries</a></li>
+                <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+                <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
+                <li><a href="/busca" class="nav-link">Lista</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" class="form-hidden">
+                        @csrf
+                    </form>
+                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container conteudo-pagina-fixa">
+
+        <div class="alerta-container">
+            @if(session('success'))
+                <div class="alerta alerta-sucesso">
+                    ✅ {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alerta alerta-erro">
+                    ❌ {{ session('error') }}
+                </div>
+            @endif
+        </div>
+        
         <header class="cabecalho-secao">
             <h1 class="titulo-secao">Series Cadastradas</h1>
             <a href="/series/create" class="btn-adicionar">+ Nova Série</a>
@@ -49,24 +60,28 @@
                     
                     @php
                         $favoritoSerie = \App\Models\Favorito::where('favoritavel_id', $serie->id)
-                                                            ->where('favoritavel_type', \App\Models\Serie::class)
-                                                            ->first();
+                            ->where('favoritavel_type', \App\Models\Serie::class)
+                            ->first();
                     @endphp
 
                     @if($favoritoSerie)
-                        <form action="{{ route('favoritos.destroy', $favoritoSerie->id) }}" method="POST" style="position: absolute; top: 15px; right: 15px; margin: 0; z-index: 10;">
+                        <form action="{{ route('favoritos.destroy', $favoritoSerie->id) }}" method="POST" class="form-favorito">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" title="Remover dos Favoritos" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #ffca28; text-shadow: 0 0 5px rgba(0,0,0,0.7); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                            <button type="submit" title="Remover dos Favoritos" class="btn-favorito btn-favorito--ativo"
+                                onmouseover="this.style.transform='scale(1.2)'"
+                                onmouseout="this.style.transform='scale(1)'">
                                 ⭐
                             </button>
                         </form>
                     @else
-                        <form action="{{ route('favoritos.store') }}" method="POST" style="position: absolute; top: 15px; right: 15px; margin: 0; z-index: 10;">
+                        <form action="{{ route('favoritos.store') }}" method="POST" class="form-favorito">
                             @csrf
                             <input type="hidden" name="id" value="{{ $serie->id }}">
                             <input type="hidden" name="tipo" value="Serie">
-                            <button type="submit" title="Adicionar aos Favoritos" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.7); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                            <button type="submit" title="Adicionar aos Favoritos" class="btn-favorito btn-favorito--inativo"
+                                onmouseover="this.style.transform='scale(1.2)'"
+                                onmouseout="this.style.transform='scale(1)'">
                                 ☆
                             </button>
                         </form>
@@ -84,8 +99,8 @@
                             <span class="filme-nota">⭐ {{ $serie->nota == floor($serie->nota) ? floor($serie->nota) : $serie->nota }}/5</span>
                         </div>
                         
-                        <div style="margin-bottom: 0.5rem;">
-                            <span class="filme-genero" style="font-size: 0.85rem; color: #aaa; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px;">
+                        <div class="card-genero-wrapper">
+                            <span class="filme-genero">
                                 🏷️ {{ $serie->genero ?? 'Outro' }}
                             </span>
                         </div>
@@ -105,11 +120,48 @@
             @empty
                 <div class="lista-vazia">
                     <p>Sua lista de séries está vazia.</p>
-                    <p style="margin-top: 0.5rem;"><a href="/series/create">Cadastre a primeira série agora →</a></p>
+                    <p class="lista-vazia__link"><a href="/series/create">Cadastre a primeira série agora →</a></p>
                 </div>
             @endforelse
         </div>
     </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imagens = [
+            "/img/imagem1.jpg", "/img/imagem2.jpg", "/img/imagem3.jpg",
+            "/img/imagem8.jpg", "/img/imagem9.jpg", "/img/imagem10.jpg",
+            "/img/img5.jpg",    "/img/img6.jpg",    "/img/img7.jpg",
+            "/img/img8.jpg",    "/img/imagem4.jpg", "/img/imagem5.jpg",
+            "/img/img11.jpg",   "/img/img12.jpg",   "/img/img13.jpg",
+            "/img/imagem6.jpg", "/img/img15.jpg",   "/img/img16.jpg",
+            "/img/imagem7.jpg"
+        ];
 
+        const slider = document.getElementById("bgSlider");
+        let index = 0;
+
+        function mudarFundo() {
+            if (slider) {
+                slider.style.backgroundImage = `url('${imagens[index]}')`;
+                index = (index + 1) % imagens.length;
+            }
+        }
+
+        mudarFundo();
+        setInterval(mudarFundo, 5000);
+
+        const alertaContainer = document.getElementById("alertaContainer");
+        if (alertaContainer && alertaContainer.children.length > 0) {
+            setTimeout(function() {
+                alertaContainer.style.transition = "opacity 0.5s ease";
+                alertaContainer.style.opacity = "0";
+                setTimeout(function() {
+                    alertaContainer.remove();
+                }, 500);
+            }, 4000);
+        }
+    });
+</script>
 </body>
 </html>

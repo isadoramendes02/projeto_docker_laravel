@@ -9,26 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class SerieController extends Controller
 {
-    /**
-     * Exibe a listagem de séries (Index)
-     */
     public function index()
     {
-        $series = Serie::where('user_id', Auth::id())->get();
+        $series = Serie::where('user_id', Auth::id())->latest()->get();
         return view('series.index', compact('series'));
     }
 
-    /**
-     * Mostra o formulário de criar (Create)
-     */
     public function create()
     {
         return view('series.create');
     }
 
-    /**
-     * Salva uma nova série no banco (Store)
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -39,9 +30,16 @@ class SerieController extends Controller
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
+        $existe = Serie::where('user_id', Auth::id())
+            ->where('titulo', trim($request->titulo))
+            ->exists();
+
+        if ($existe) {
+            return redirect('/series')->with('error', 'Esta série já está cadastrada na sua lista!');
+        }
+
         $caminhoImagem = null;
 
-        // Tenta salvar a imagem direto na pasta pública usando o disco 'fotos_publicas'
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
             try {
                 $caminhoImagem = $request->file('imagem')->store('series', 'fotos_publicas');
@@ -50,40 +48,30 @@ class SerieController extends Controller
             }
         }
 
-        // Cria o registro no banco usando a model com $fillable
         Serie::create([
-            'titulo'    => $request->titulo,
+            'titulo'    => trim($request->titulo),
             'genero'    => $request->genero, 
             'descricao' => $request->descricao, 
             'nota'      => $request->nota,
             'imagem'    => $caminhoImagem,
-            'user_id' => $request->user()->id,
+            'user_id'   => Auth::id(),
         ]);
 
-        return redirect('/series');
+        return redirect('/series')->with('success', 'Série criada com sucesso!');
     }
 
-    /**
-     * Exibe os detalhes de uma série específica (Show)
-     */
     public function show($id)
     {
         $serie = Serie::findOrFail($id);
         return view('series.show', compact('serie'));
     }
 
-    /**
-     * Mostra o formulário de editar (Edit)
-     */
     public function edit($id)
     {
         $serie = Serie::findOrFail($id);
         return view('series.edit', compact('serie'));
     }
 
-    /**
-     * Atualiza os dados da série no banco (Update)
-     */
     public function update(Request $request, $id)
     {
         $serie = Serie::findOrFail($id);
@@ -96,8 +84,17 @@ class SerieController extends Controller
             'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
+        $existe = Serie::where('user_id', Auth::id())
+            ->where('titulo', trim($request->titulo))
+            ->where('id', '!=', $id)
+            ->exists();
+
+        if ($existe) {
+            return redirect('/series')->with('error', 'Você já possui outra série cadastrada com este mesmo título!');
+        }
+
         $dados = [
-            'titulo' => $request->titulo,
+            'titulo' => trim($request->titulo),
             'genero' => $request->genero,
             'descricao' => $request->descricao,
             'nota' => $request->nota
@@ -105,41 +102,34 @@ class SerieController extends Controller
 
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
             try {
-                // Remove a foto antiga usando o disco correto 'fotos_publicas'
                 if ($serie->imagem && Storage::disk('fotos_publicas')->exists($serie->imagem)) {
                     Storage::disk('fotos_publicas')->delete($serie->imagem);
                 }
-                // Salva a nova imagem no disco público
                 $dados['imagem'] = $request->file('imagem')->store('series', 'fotos_publicas');
             } catch (\Exception $e) {
-                // Mantém a imagem antiga caso o upload falhe
                 $dados['imagem'] = $serie->imagem;
             }
         }
 
         $serie->update($dados);
 
-        return redirect('/series');
+        return redirect('/series')->with('success', 'Série editada com sucesso!');
     }
 
-    /**
-     * Remove a série do banco de dados (Destroy)
-     */
     public function destroy($id)
     {
         $serie = Serie::findOrFail($id);
 
         try {
-            // Remove a imagem antiga do disco correto 'fotos_publicas' antes de apagar do banco
             if ($serie->imagem && Storage::disk('fotos_publicas')->exists($serie->imagem)) {
                 Storage::disk('fotos_publicas')->delete($serie->imagem);
             }
         } catch (\Exception $e) {
-            // Ignora erro se não conseguir apagar o arquivo físico e prossegue deletando do banco
+            
         }
 
         $serie->delete();
 
-        return redirect('/series');
+        return redirect('/series')->with('success', 'Série deletada com sucesso!');
     }
 }

@@ -1167,3 +1167,565 @@ body {
     }
 
 }
+
+.btn-acoes-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 320px; /* Evita que eles fiquem gigantescos */
+}
+
+/* Estilo padronizado para ambos os botões dentro do card */
+.btn-acao-lista {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    white-space: nowrap; /* Impede o texto de quebrar linha */
+    transition: background 0.2s ease;
+}
+
+/* Cor azul do botão Salvar */
+.btn-salvar-lista {
+    background-color: #1e40af !important;
+    color: white !important;
+}
+.btn-salvar-lista:hover {
+    background-color: #1d4ed8 !important;
+}
+
+/* Cor vermelha do botão Cancelar */
+.btn-cancelar-lista {
+    background-color: #dc2626 !important;
+    color: white !important;
+}
+.btn-cancelar-lista:hover {
+    background-color: #b91c1c !important;
+}
+
+
+/* ==========================================================================
+ESTILIZAÇÃO DA TABELA COMPLETA DE MINHA LISTA
+   ========================================================================== */
+
+.secao-lista {
+    margin-top: 40px;
+    width: 100%;
+    overflow-x: auto; /* Garante que se a tela for pequena, a tabela ganhe scroll e não quebre */
+}
+
+.tabela-lista {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #1a1a1a; /* Ajuste para a cor escura do seu tema */
+    color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabela-lista th, 
+.tabela-lista td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #2a2a2a;
+    vertical-align: middle;
+}
+
+.tabela-lista th {
+    background-color: #2d2d2d;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* Mini capa do filme/série na tabela */
+.capa-tabela {
+    width: 45px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    display: block;
+}
+
+/* Tags de Status para ficar visualmente bonito */
+.status-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    white-space: nowrap;
+}
+.status-ja-assistido { background-color: #10b981; color: white; }   /* Verde */
+.status-quero-assistir { background-color: #3b82f6; color: white; } /* Azul */
+.status-abandonei { background-color: #ef4444; color: white; }      /* Vermelho */
+.status-falta-terminar { background-color: #f59e0b; color: white; } /* Amarelo */
+
+/* Alinhamento dos botões de ação da tabela */
+.acoes-celula {
+    display: flex;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.form-deletar {
+    display: inline;
+}
+.card-salvo {
+    border: none !important; /* Remove totalmente as linhas de contorno azul */
+    background: rgba(26, 26, 26, 0.65) !important; /* Fundo preto meio transparente */
+    backdrop-filter: blur(8px); /* Efeito de vidro fosco no fundo */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave para dar destaque */
+}
+
+.resultado-comentario-texto {
+    font-size: 15px;
+    color: #e2e8f0;
+    background-color: rgba(30, 41, 59, 0.5); /* Comentário também levemente transparente */
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-left: 4px solid #2563eb;
+}
+
+/* Tags de Status */
+.status-tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+.status-ja-assistido { background-color: #10b981; color: white; }
+.status-quero-assistir { background-color: #3b82f6; color: white; }
+.status-abandonei { background-color: #ef4444; color: white; }
+.status-falta-terminar { background-color: #f59e0b; color: white; }
+
+/* ==========================================================================
+   ESTILIZAÇÃO DA TELA DE EDIÇÃO / CRIAÇÃO
+   ========================================================================== */
+
+.secao-formulario {
+    background: rgba(26, 26, 26, 0.75) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 30px;
+    margin-top: 30px;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.campo-grupo {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-grupo label {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.input-form, .select-form, .textarea-form {
+    background-color: #2a2a2a !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+.input-form[readonly] {
+    background-color: #1f1f1f !important;
+    color: #aaa !important;
+    cursor: not-allowed;
+}
+
+.textarea-form {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Container dos botões do formulário */
+.btn-container-form {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn-form {
+    flex: 1;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: white !important;
+    transition: background 0.2s;
+}
+
+.btn-salvar { background-color: #2563eb !important; }
+.btn-salvar:hover { background-color: #132149 !important; }
+
+.btn-cancelar { background-color: #dc2626 !important; }
+.btn-cancelar:hover { background-color: #480f0f !important; }
+
+/* ==========================================================================
+   AJUSTE DOS CARDS SALVOS (TRANSPARÊNCIA E SEM BORDAS)
+   ========================================================================== */
+.card-salvo {
+    border: none !important; /* Remove totalmente a linha azul de contorno */
+    background: rgba(26, 26, 26, 0.65) !important; /* Fundo preto meio transparente */
+    backdrop-filter: blur(8px); /* Efeito fosco de vidro no fundo */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.resultado-comentario-texto {
+    font-size: 15px;
+    color: #e2e8f0;
+    background-color: rgba(30, 41, 59, 0.5); /* Fundo do comentário transparente */
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* Tags de Status */
+.status-tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+.status-ja-assistido { background-color: #10b981; color: white; }
+.status-quero-assistir { background-color: #3b82f6; color: white; }
+.status-abandonei { background-color: #ef4444; color: white; }
+.status-falta-terminar { background-color: #f59e0b; color: white; }
+
+
+/* ==========================================================================
+   ESTILIZAÇÃO EXCLUSIVA DA TELA DE EDIÇÃO (EDIT.BLADE)
+   ========================================================================== */
+.container-centralizado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.secao-formulario {
+   margin-top: 40px;
+    width: 100%;
+    background: rgba(26, 26, 26, 0.20) !important; /* Reduzido de 0.45 para 0.20 (bem mais transparente) */
+    backdrop-filter: blur(15px); /* Aumentado o desfoque para o texto continuar legível por cima do fundo */
+    border-radius: 12px;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.secao-lista {
+    margin-top: 40px !important;
+    width: 100% !important;
+    background: rgba(26, 26, 26, 0.10) !important; /* Apenas 10% de cor, quase invisível */
+    backdrop-filter: blur(15px) !important; /* Mantém o efeito de vidro fosco */
+    border-radius: 12px !important;
+    padding: 25px !important;
+    box-sizing: border-box !important;
+    box-shadow: none !important; /* Remove sombras que possam escurecer o bloco */
+    border: none !important; /* Garante que não há bordas escuras */
+}
+
+
+.titulo-formulario {
+    color: white; 
+    margin-bottom: 25px; 
+    text-align: center;
+}
+
+.campo-grupo {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-grupo label {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.input-form, .select-form, .textarea-form {
+    background-color: #2a2a2a !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-form:focus, .select-form:focus, .textarea-form:focus {
+    border-color: #2563eb !important;
+}
+
+.input-form[readonly] {
+    background-color: #1f1f1f !important;
+    color: #aaa !important;
+    cursor: not-allowed;
+}
+
+.textarea-form {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn-container-form {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+.btn-form {
+    flex: 1;
+    height: 42px;
+    padding: 0 15px !important; /* Força o preenchimento interno idêntico */
+    margin: 0 !important;       /* Remove qualquer margem nativa do botão */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 6px;
+    border: none !important;
+    outline: none !important;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: white !important;
+    box-sizing: border-box !important; /* Crucial para travar o cálculo de tamanho em 42px */
+    transition: background 0.2s;
+    line-height: 1 !important;        /* Reseta a altura da linha do texto */
+}
+.btn-salvar { background-color: #517ddb !important; }
+.btn-salvar:hover { background-color: #0e2052 !important; }
+
+.btn-cancelar { background-color: #dc2626 !important; }
+.btn-cancelar:hover { background-color: #6c1616 !important; }
+
+.navbar-painel {
+    background: linear-gradient(135deg, rgba(2, 62, 138, 0.95) 0%, rgba(3, 4, 94, 0.95) 100%);
+    backdrop-filter: blur(10px); 
+    position: fixed; /* Fixa no topo da tela */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    z-index: 9999 !important; /* Fica acima do slider de imagens */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.nav-container-painel {
+    width: 100% !important;
+    max-width: 100% !important; /* Força a ocupar a tela inteira */
+    padding: 1.25rem 2.5rem !important; /* Espaçamento elegante nas bordas */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+.dashboard-menu-container {
+    margin-top: 120px !important; /* Empurra o título e os blocos bem para baixo */
+}
+
+.conteudo-pagina-fixa {
+    padding-top: 40px; /* Ajuste para 30px ou 20px se ainda achar grande */
+    position: relative;
+    z-index: 5;
+}
+
+/* Se precisar de um ajuste específico para os formulários de Criar/Editar */
+.container-formulario-fixo {
+    padding-top: 50px;
+    position: relative;
+    z-index: 5;
+}
+.dashboard-wrapper {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.bg-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out;
+    z-index: -1;
+}
+
+.conteudo-pagina-fixa {
+    padding-top: 40px !important;
+    position: relative;
+    z-index: 5;
+}
+
+/* =============================
+   Utilitários gerais
+   ============================= */
+
+.form-hidden {
+    display: none;
+}
+
+/* =============================
+   Favorito
+   ============================= */
+
+.form-favorito {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+    z-index: 10;
+}
+
+.btn-favorito {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s;
+}
+
+.btn-favorito--ativo {
+    color: #ffca28;
+}
+
+.btn-favorito--inativo {
+    color: #fff;
+}
+
+/* =============================
+   Gênero do card
+   ============================= */
+
+.card-genero-wrapper {
+    margin-bottom: 0.5rem;
+}
+
+.card-genero-wrapper .filme-genero {
+    font-size: 0.85rem;
+    color: #aaa;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* =============================
+   Lista vazia
+   ============================= */
+
+.lista-vazia__link {
+    margin-top: 0.5rem;
+}
+
+.btn-retornar-lista {
+    display: block;
+    text-align: center;
+    color: var(--texto-escuro);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    transition: color 0.2s;
+}
+
+.btn-retornar-lista:hover {
+    color: var(--cor-borda-hover);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   ALERTAS E FEEDBACKS (SUCESSO E ERRO)
+   ========================================================================== */
+.alerta-container {
+    margin-bottom: 1.5rem;
+}
+
+.alerta {
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: surgindo 0.3s ease-out;
+}
+
+/* Balão Verde (Sucesso: Criado, Editado, Deletado) */
+.alerta-sucesso {
+    background-color: rgba(16, 185, 129, 0.2); /* Verde translúcido */
+    border: 1px solid #10b981;
+    color: #34d399; /* Texto verde claro */
+}
+
+/* Balão Vermelho (Erro: Item Repetido, Falha) */
+.alerta-erro {
+    background-color: rgba(244, 63, 94, 0.2); /* Vermelho translúcido */
+    border: 1px solid #f43f5e;
+    color: #fda4af; /* Texto vermelho claro */
+}
+
+@keyframes surgindo {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
