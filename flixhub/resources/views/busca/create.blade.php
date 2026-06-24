@@ -58,22 +58,99 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
-            <ul class="nav-menu">
-                <li><a href="/filmes" class="nav-link">Início</a></li>
-                <li><a href="/filmes" class="nav-link">Filmes</a></li>
-                <li><a href="/series" class="nav-link">Séries</a></li>
-                <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-                <li><a href="/busca" class="nav-link ativo">🔍 Minha Lista</a></li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
+        <ul class="nav-menu">
+            <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
+            <li><a href="/filmes" class="nav-link">Filmes</a></li>
+            <li><a href="/series" class="nav-link">Séries</a></li>
+            <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+            
+            <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
+            
+            <li><a href="/busca" class="nav-link ativo">Lista</a></li>
+            
+            <li>
+                <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" style="display: none;">
+                    @csrf
+                </form>
+                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
+                    Sair
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
     <div class="container">
         <div class="formulario-container">
             <h2 style="margin-bottom: 20px; color: #3b82f6;">Adicionar à Minha Lista</h2>
+           @if($obra)
+
+<div class="card-detalhado">
+
+    <img
+        src="{{ $obra->imagem ? asset('storage/'.$obra->imagem) : asset('img/sem-foto.jpg') }}"
+        alt="{{ $obra->titulo }}"
+    >
+
+    <div class="card-info">
+
+        <h2>{{ $obra->titulo }}</h2>
+
+        <p>
+            <strong>🎬 Tipo:</strong>
+            {{ $obra->tipo }}
+        </p>
+
+        <p>
+            <strong>🏷️ Gênero:</strong>
+            {{ $obra->genero }}
+        </p>
+
+        <p>
+            <strong>⭐ Nota:</strong>
+            {{ $obra->nota }}
+        </p>
+
+        <p>
+            <strong>❤️ Favorito:</strong>
+            {{ $obra->favorito ? 'Sim' : 'Não' }}
+        </p>
+
+        <div class="card-descricao">
+
+            <strong>📝 Descrição:</strong>
+
+            <p>
+                {{ $obra->descricao }}
+            </p>
+
+        </div>
+
+        @if($playlist)
+
+        <div class="trailer-box">
+
+            <h4>🎥 Trailer</h4>
+
+            <video class="trailer-video" controls>
+                <source
+                    src="{{ asset($playlist->trailer) }}"
+                    type="video/mp4"
+                >
+            </video>
+
+        </div>
+
+        @endif
+
+    </div>
+
+</div>
+
+@endif
             
             <form action="{{ route('busca.store') }}" method="POST">
                 @csrf

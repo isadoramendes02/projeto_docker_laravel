@@ -9,7 +9,8 @@ class Favorito extends Model
     protected $fillable = [
         'favoritavel_id',
         'favoritavel_type',
-        'comentario' // << GARANTA QUE ESTÁ AQUI
+        'comentario', // << GARANTA QUE ESTÁ AQUI
+        'user_id'
     ];
 
     public function favoritavel()

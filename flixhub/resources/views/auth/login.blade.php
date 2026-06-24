@@ -15,12 +15,12 @@
 
             <div class="form-group">
                 <input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required autofocus>
-                @error('email') <span style="color: #e50914; font-size: 0.85rem;">{{ $message }}</span> @enderror
+                @error('email') <span>{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <input type="password" name="password" placeholder="Senha" required autocomplete="current-password">
-                @error('password') <span style="color: #e50914; font-size: 0.85rem;">{{ $message }}</span> @enderror
+                @error('password') <span>{{ $message }}</span> @enderror
             </div>
 
             <button type="submit" class="btn-login">Entrar</button>
@@ -37,7 +37,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Coloque os links ou caminhos das suas imagens preferidas aqui:
         const imagens = [
             "/img/imagem1.jpg",
             "/img/imagem2.jpg",
@@ -59,7 +58,6 @@
             "/img/img16.jpg",
             "/img/imagem7.jpg",
         ];
-
 
         const slider = document.getElementById("bgSlider");
         let index = 0;

@@ -1,52 +1,82 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Flixhub</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+<div class="login-container">
+    <div id="bgSlider" class="bg-slider"></div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <div class="login-card">
+        <h2>Cadastrar</h2>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Nome" value="{{ old('name') }}" required autofocus autocomplete="name">
+                @error('name') <span>{{ $message }}</span> @enderror
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}" required autocomplete="username">
+                @error('email') <span>{{ $message }}</span> @enderror
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Senha" required autocomplete="new-password">
+                @error('password') <span>{{ $message }}</span> @enderror
+            </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <div class="form-group">
+                <input type="password" name="password_confirmation" placeholder="Confirmar Senha" required autocomplete="new-password">
+                @error('password_confirmation') <span>{{ $message }}</span> @enderror
+            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <button type="submit" class="btn-login">
+                Cadastrar
+            </button>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+            <div class="login-links">
+                <a href="{{ route('login') }}">Já tem uma conta? Entre aqui</a>
+            </div>
+        </form>
+    </div>
+</div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const imagens = [
+            "/img/imagem1.jpg",
+            "/img/imagem2.jpg",
+            "/img/imagem3.jpg",
+            "/img/imagem8.jpg",
+            "/img/imagem9.jpg",
+            "/img/imagem10.jpg",
+            "/img/img5.jpg",
+            "/img/img6.jpg",
+            "/img/img7.jpg",
+            "/img/img8.jpg",
+            "/img/imagem4.jpg",
+            "/img/imagem5.jpg",
+            "/img/img11.jpg",
+            "/img/img12.jpg",
+            "/img/img13.jpg",
+            "/img/imagem6.jpg",
+            "/img/img15.jpg",
+            "/img/img16.jpg",
+            "/img/imagem7.jpg",
+        ];
+
+        const slider = document.getElementById("bgSlider");
+        let index = 0;
+
+        function mudarFundo() {
+            slider.style.backgroundImage = `url('${imagens[index]}')`;
+            index = (index + 1) % imagens.length;
+        }
+
+        mudarFundo();
+        setInterval(mudarFundo, 5000); // Troca a cada 5 segundos
+    });
+</script>

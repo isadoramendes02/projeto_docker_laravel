@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\FilmeController;
-use App\Http\Controllers\SerieController;
-use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\BuscaController;
+use App\Http\Controllers\FavoritoController;
+use App\Http\Controllers\FilmeController;
+use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SerieController;
 use Illuminate\Support\Facades\Route;
 
 // Rota Inicial Pública (Se quiser que mande direto para a tela do Breeze ou Welcome)
@@ -53,7 +54,13 @@ Route::middleware('auth')->group(function () {
 
     // Sua Rota de Busca (Consertada e fechada corretamente)
     Route::resource('busca', BuscaController::class);
+
+    Route::resource('playlists', PlaylistController::class);
 });
 
 // Puxa as rotas de login/cadastro por fora
 require __DIR__.'/auth.php';
+
+Route::get('/php-info', function() {
+    return phpinfo();
+});

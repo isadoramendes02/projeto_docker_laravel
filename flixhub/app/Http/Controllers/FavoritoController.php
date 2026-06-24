@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Favorito;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FavoritoController extends Controller
 {
@@ -13,7 +14,7 @@ class FavoritoController extends Controller
     public function index()
     {
         // Puxa todos os favoritos trazendo junto os dados do Filme ou Série original
-        $favoritos = Favorito::with('favoritavel')->get();
+        $favoritos = Favorito::where('user_id', Auth::id())->get();
         return view('favoritos.index', compact('favoritos'));
     }
 
@@ -53,14 +54,15 @@ class FavoritoController extends Controller
 
         // Evita duplicar o mesmo favorito caso o usuário clique duas vezes rápido
         $existe = Favorito::where('favoritavel_id', $request->id)
-                          ->where('favoritavel_type', $modelType)
-                          ->exists();
+                        ->where('favoritavel_type', $modelType)
+                        ->exists();
 
         if (!$existe) {
             Favorito::create([
                 'favoritavel_id' => $request->id,
                 'favoritavel_type' => $modelType,
-                'comentario' => $request->comentario // Gravando o comentário enviado pelo formulário de criação
+                'comentario' => $request->comentario, // Gravando o comentário enviado pelo formulário de 
+                'user_id' => $request->user()->id,
             ]);
         }
 

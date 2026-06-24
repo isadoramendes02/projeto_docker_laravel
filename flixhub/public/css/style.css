@@ -434,7 +434,7 @@ body {
 .login-card h2 {
     font-family: 'cinemafont', sans-serif; /* Sua fonte customizada aqui! */
     color: #ffffff;
-    font-size: 2.5rem; /* Aumentei um pouquinho porque fontes de cinema costumam pedir destaque */
+    font-size: 2.0rem; /* Aumentei um pouquinho porque fontes de cinema costumam pedir destaque */
     margin-bottom: 28px;
     letter-spacing: 1px;
     text-align: center;
@@ -506,4 +506,475 @@ body {
 .login-links a:hover {
     opacity: 1;
     text-decoration: underline;
+}
+
+/* Customizações exclusivas da tela de recuperar senha */
+.login-instructions {
+    font-family: 'Thin', sans-serif;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    text-align: center;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+.status-message {
+    font-family: 'Thin', sans-serif;
+    color: #60a5fa;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.forgot-links {
+    justify-content: center !important;
+    margin-top: 25px;
+}
+
+/* ==========================================================================
+   TELA INICIAL ESTILO SELEÇÃO DE PERFIL (NETFLIX DESIGN)
+   ========================================================================== */
+
+.welcome-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Nova Nav fixa no topo com degradê azul escuro sumindo para a direita */
+.welcome-nav {
+    width: 100%;
+    padding: 30px 60px; 
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start; 
+    box-sizing: border-box;
+    background: linear-gradient(to right, #031430 0%, rgba(54, 88, 143, 0.8) 40%, rgba(3, 20, 48, 0) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.logo-text {
+    font-family: 'cinemafont', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    font-size: 2.0rem;
+    background: linear-gradient(to right, #ffffff 0%, #00b4d8 50%, #0077b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+.profile-selection-container {
+    position: relative;
+    z-index: 2;
+    /* Adicionamos 120px de margem no topo para empurrar o bloco para baixo e desgrudar da nav */
+    margin: 120px auto auto 10%; 
+    text-align: left;
+    max-width: 600px;
+}
+
+/* Aumentando o espaço entre a frase e os botões */
+.welcome-phrase {
+    font-family: 'Thin', sans-serif;
+    color: #a0aec0;
+    font-size: 1.2rem;
+    margin-bottom: 30px; /* De 40px para 55px para espalhar mais na vertical */
+    text-align: left;
+}
+/* Garante que o título acompanhe o alinhamento à esquerda */
+.welcome-title {
+    font-family: 'cinemafont', sans-serif;
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+/* Ajusta o alinhamento dos botões/cards para começarem da esquerda */
+.profile-options {
+    display: flex;
+    justify-content: flex-start; /* Alinha os dois perfis à esquerda */
+    gap: 40px;
+}
+
+/* Card individual */
+.profile-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* O quadrado do ícone */
+.profile-icon {
+    width: 130px;
+    height: 130px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 15px;
+}
+
+.profile-icon svg {
+    width: 60px;
+    height: 60px;
+    color: #ffffff;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.icon-login {
+    background-color: #004080;
+}
+
+.icon-register {
+    background-color: rgba(0, 64, 128, 0.4);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+/* Efeito de Hover */
+.profile-card:hover .profile-icon {
+    border-color: #ffffff;
+    transform: scale(1.05);
+}
+
+.profile-card:hover .profile-icon svg {
+    opacity: 1;
+}
+
+.profile-card:hover .profile-name {
+    color: #ffffff;
+}
+
+/* Nome do botão abaixo do ícone */
+.profile-name {
+    font-family: 'Thin', sans-serif;
+    color: #9ca3af;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+/* ==========================================================================
+   ESTILOS DA DASHBOARD (MENU CENTRALIZADO)
+   ========================================================================== */
+
+.dashboard-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Ajuste na nav para espalhar a logo na esquerda e o botão de sair na direita */
+.dashboard-nav {
+    justify-content: space-between !important;
+    align-items: center;
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-family: 'Thin', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-logout:hover {
+    background-color: #e50914; /* Vermelho ao passar o mouse para deslogar */
+    border-color: #e50914;
+}
+
+/* Container do Menu Principal totalmente Centralizado */
+.dashboard-menu-container {
+    position: relative;
+    z-index: 2;
+    margin: auto; /* Centralização perfeita vertical e horizontal */
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.dashboard-title {
+    font-family: 'cinemafont', sans-serif;
+    color: #ffffff;
+    font-size: 2.8rem;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+}
+
+/* Grade para alinhar os blocos lado a lado */
+.menu-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Estilo de cada bloco/card de link */
+.menu-card {
+    text-decoration: none;
+    background-color: rgba(3, 20, 48, 0.65); /* Azul escuro semi-transparente */
+    border: 2px solid rgba(0, 64, 128, 0.5);
+    width: 220px;
+    height: 180px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.card-icon {
+    margin-bottom: 15px;
+}
+
+.card-icon svg {
+    width: 45px;
+    height: 45px;
+    color: #4facfe; /* Cor azul claro/ciano do seu degradê */
+    transition: transform 0.2s;
+}
+
+.card-text {
+    font-family: 'Thin', sans-serif;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Efeito Hover nos Blocos Centralizados */
+.menu-card:hover {
+    transform: translateY(-8px); /* Sobe de leve */
+    border-color: #00f2fe; /* Acende a borda com o ciano */
+    background-color: rgba(3, 20, 48, 0.85);
+    box-shadow: 0 12px 40px rgba(0, 242, 254, 0.2); /* Sombra neon azul */
+}
+
+.menu-card:hover .card-icon svg {
+    transform: scale(1.1);
+    color: #00f2fe;
+}
+
+.media-container{
+    width:100%;
+    height:320px;
+    overflow:hidden;
+    border-radius:15px;
+    background:#000;
+    margin-bottom:15px;
+}
+
+.card-video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.card-detalhado {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid #1e40af;
+    border-radius: 15px;
+
+    padding: 25px;
+    margin-bottom: 25px;
+
+    transition: 0.3s;
+}
+
+.card-detalhado:hover {
+    border-color: #3b82f6;
+    transform: translateY(-3px);
+}
+
+.card-detalhado img {
+    width: 260px;
+    height: 380px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+}
+
+.card-info {
+    flex: 1;
+}
+
+.card-info h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.card-info p {
+    margin-bottom: 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.card-info strong {
+    color: #60a5fa;
+}
+
+.card-descricao {
+    margin-top: 20px;
+    padding: 15px;
+
+    background: rgba(255,255,255,0.03);
+
+    border-left: 4px solid #3b82f6;
+    border-radius: 6px;
+}
+
+/* ===== TRAILER ===== */
+
+.trailer-box {
+    margin-top: 25px;
+}
+
+.trailer-box h4 {
+    color: #60a5fa;
+    margin-bottom: 10px;
+}
+
+.trailer-video {
+    width: 100%;
+    max-width: 700px;
+
+    border-radius: 10px;
+
+    border: 1px solid #334155;
+
+    overflow: hidden;
+}
+
+/* ===== BOTÃO ===== */
+
+.btn-lista {
+    margin-top: 25px;
+
+    display: inline-block;
+
+    background: #2563eb;
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: .3s;
+}
+
+.btn-lista:hover {
+    background: #1d4ed8;
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 900px) {
+
+    .card-detalhado {
+        flex-direction: column;
+    }
+
+    .card-detalhado img {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .trailer-video {
+        max-width: 100%;
+    }
+}
+
+.resultado-card {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #111827;
+    border: 1px solid #1e40af;
+    border-radius: 12px;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: 250px 1fr 420px;
+    gap: 25px;
+
+    align-items: start;
+}
+
+.resultado-imagem {
+    width: 250px;
+}
+
+.resultado-cartaz {
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.resultado-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultado-titulo {
+    margin-bottom: 15px;
+    font-size: 2rem;
+    color: white;
+}
+
+.resultado-descricao-titulo {
+    margin-top: 15px;
+}
+
+.resultado-trailer {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultado-trailer h4 {
+    margin-bottom: 10px;
+    color: #60a5fa;
+}
+
+.video-trailer {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+
+    border-radius: 10px;
+    border: 2px solid #1e40af;
+    background: #000;
+}
+
+.btn-adicionar-lista {
+    margin-top: 20px;
+    width: fit-content;
 }

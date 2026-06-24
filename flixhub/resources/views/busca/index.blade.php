@@ -24,19 +24,30 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
-            <ul class="nav-menu">
-                <li><a href="/filmes" class="nav-link">Início</a></li>
-                <li><a href="/filmes" class="nav-link">Filmes</a></li>
-                <li><a href="/series" class="nav-link">Séries</a></li>
-                <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-                <li><a href="/busca" class="nav-link ativo">🔍 Minha Lista</a></li>
-            </ul>
-        </div>
-    </nav>
-
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
+        <ul class="nav-menu">
+            <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
+            <li><a href="/filmes" class="nav-link">Filmes</a></li>
+            <li><a href="/series" class="nav-link">Séries</a></li>
+            <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
+            
+            <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
+            
+            <li><a href="/busca" class="nav-link ativo">Lista</a></li>
+            
+            <li>
+                <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" style="display: none;">
+                    @csrf
+                </form>
+                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
+                    Sair
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
     <div class="container">
         
         <div class="secao-busca">
@@ -48,26 +59,88 @@
         </div>
 
         @if(isset($termo) && $termo)
-            <h2 class="titulo-secao">Resultados encontrados:</h2>
-            <div class="grade-filmes">
-                @foreach($resultados as $item)
-                    <div class="card-filme">
-                        <img src="{{ $item->imagem ? asset('storage/' . $item->imagem) : asset('img/sem-foto.jpg') }}" class="filme-cartaz">
-                        <div>
-                            <div class="card-topo">
-                                <h3 class="filme-titulo">{{ $item->titulo }}</h3>
-                                <span class="filme-nota">🏷️ {{ $item->genero }}</span>
-                            </div>
-                            <p class="filme-descricao">{{ $item->descricao }}</p>
-                            <a href="{{ route('busca.create', ['titulo' => $item->titulo, 'tipo' => $item->tipo]) }}" class="btn-azul" style="margin-top: 10px;">
-                                ➕ Adicionar à Minha Lista
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+
+<h2 class="titulo-secao">Resultados encontrados:</h2>
+
+@foreach($resultados as $item)
+<div class="resultado-card">
+
+    <div class="resultado-imagem">
+        <img
+            src="{{ $item->imagem ? asset('storage/' . $item->imagem) : asset('img/sem-foto.jpg') }}"
+            class="resultado-cartaz"
+        >
+    </div>
+
+    <div class="resultado-info">
+
+        <h2 class="resultado-titulo">
+            {{ $item->titulo }}
+        </h2>
+
+         <div class="resultado-trailer">
+
+            <h4>🎥 Trailer</h4>
+
+            <video class="video-trailer" controls>
+                <source
+                    src="{{ asset($item->trailer) }}"
+                    type="video/mp4"
+                >
+            </video>
+
+        </div>
+
+        <p><strong>🎬 Tipo:</strong> {{ $item->tipo }}</p>
+
+        <p><strong>🏷️ Gênero:</strong> {{ $item->genero }}</p>
+
+        <p><strong>⭐ Nota:</strong> {{ $item->nota }}</p>
+
+        <p>
+            <strong>❤️ Favorito:</strong>
+            {{ $item->favorito ? 'Sim' : 'Não' }}
+        </p>
+
+        <p class="resultado-descricao-titulo">
+            <strong>📝 Descrição:</strong>
+        </p>
+
+        <p>
+            {{ $item->descricao }}
+        </p>
+
+        @if($item->trailer)
+
+
         @endif
 
+        <a
+            href="{{ route('busca.create', ['titulo' => $item->titulo, 'tipo' => $item->tipo]) }}"
+            class="btn-azul btn-adicionar-lista"
+        >
+            ➕ Adicionar à Minha Lista
+        </a>
+
+    </div>
+
+</div>
+
+        <a
+            href="{{ route('busca.create', ['titulo' => $item->titulo, 'tipo' => $item->tipo]) }}"
+            class="btn-azul"
+            style="margin-top:20px;"
+        >
+            ➕ Adicionar à Minha Lista
+        </a>
+
+    </div>
+
+</div>
+
+@endforeach
+
+@endif
         <div class="secao-lista">
             <h2 style="font-size: 1.3rem; border-bottom: 2px solid #1e40af; padding-bottom: 8px;">🍿 Minha Lista</h2>
             

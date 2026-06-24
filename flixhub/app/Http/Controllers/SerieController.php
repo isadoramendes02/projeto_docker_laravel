@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class SerieController extends Controller
@@ -13,7 +14,7 @@ class SerieController extends Controller
      */
     public function index()
     {
-        $series = Serie::all();
+        $series = Serie::where('user_id', Auth::id())->get();
         return view('series.index', compact('series'));
     }
 
@@ -51,11 +52,12 @@ class SerieController extends Controller
 
         // Cria o registro no banco usando a model com $fillable
         Serie::create([
-            'titulo' => $request->titulo,
-            'genero' => $request->genero,
-            'descricao' => $request->descricao,
-            'nota' => $request->nota,
-            'imagem' => $caminhoImagem
+            'titulo'    => $request->titulo,
+            'genero'    => $request->genero, 
+            'descricao' => $request->descricao, 
+            'nota'      => $request->nota,
+            'imagem'    => $caminhoImagem,
+            'user_id' => $request->user()->id,
         ]);
 
         return redirect('/series');
