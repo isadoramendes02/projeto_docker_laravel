@@ -106,96 +106,125 @@ class BuscaController extends Controller
     }
 
     public function create(Request $request)
-{
-    $titulo = $request->query('titulo');
+    {
+        $titulo = $request->query('titulo');
 
-    $obra = Filme::where('titulo', $titulo)->first();
+        $obra = Filme::where('titulo', $titulo)->first();
 
-    if (!$obra) {
+        if (!$obra) {
 
-        $obra = Serie::where('titulo', $titulo)->first();
+            $obra = Serie::where('titulo', $titulo)->first();
 
-        if ($obra) {
-            $obra->tipo = 'Série';
+            if ($obra) {
+                $obra->tipo = 'Série';
+            }
+
+        } else {
+
+            $obra->tipo = 'Filme';
         }
 
-    } else {
+        $playlist = null;
 
-        $obra->tipo = 'Filme';
+        if ($obra) {
+
+            $playlist = Playlist::where(
+                'nome',
+                $obra->titulo
+            )->first();
+        }
+
+        return view(
+            'busca.create',
+            compact(
+                'titulo',
+                'obra',
+                'playlist'
+            )
+        );
     }
 
-    $playlist = null;
+    /**
+     * ADICIONADO: Salva o novo registro na lista com o status escolhido
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'titulo_obra' => 'required|string',
+            'comentario'  => 'required|string',
+            'status'      => 'required|string',
+        ]);
 
-    if ($obra) {
+        Busca::create([
+            'user_id'     => $request->user()->id,
+            'titulo_obra' => $request->input('titulo_obra'),
+            'comentario'  => $request->input('comentario'),
+            'status'      => $request->input('status'),
+        ]);
 
-        $playlist = Playlist::where(
-            'nome',
-            $obra->titulo
-        )->first();
+        return redirect()
+            ->route('busca.index')
+            ->with('sucesso', 'Item adicionado à sua lista com sucesso!');
     }
 
-    return view(
-        'busca.create',
-        compact(
-            'titulo',
-            'obra',
-            'playlist'
-        )
-    );
-}
     public function show(Busca $busca)
     {
         //
     }
 
     public function edit(Request $request, $id)
-{
-    $busca = Busca::where(
-        'user_id',
-        $request->user()->id
-    )->findOrFail($id);
+    {
+        $busca = Busca::where(
+            'user_id',
+            $request->user()->id
+        )->findOrFail($id);
 
-    $obra = Filme::where(
-        'titulo',
-        $busca->titulo_obra
-    )->first();
-
-    if (!$obra) {
-
-        $obra = Serie::where(
+        $obra = Filme::where(
             'titulo',
             $busca->titulo_obra
         )->first();
 
-        if ($obra) {
-            $obra->tipo = 'Série';
+        if (!$obra) {
+
+            $obra = Serie::where(
+                'titulo',
+                $busca->titulo_obra
+            )->first();
+
+            if ($obra) {
+                $obra->tipo = 'Série';
+            }
+        } else {
+            $obra->tipo = 'Filme';
         }
-    } else {
-        $obra->tipo = 'Filme';
+
+        $playlist = null;
+
+        if ($obra) {
+            $playlist = Playlist::where(
+                'nome',
+                $obra->titulo
+            )->first();
+        }
+
+        return view(
+            'busca.edit',
+            compact(
+                'busca',
+                'obra',
+                'playlist'
+            )
+        );
     }
 
-    $playlist = null;
-
-    if ($obra) {
-        $playlist = Playlist::where(
-            'nome',
-            $obra->titulo
-        )->first();
-    }
-
-    return view(
-        'busca.edit',
-        compact(
-            'busca',
-            'obra',
-            'playlist'
-        )
-    );
-}
+    /**
+     * ATUALIZADO: Agora valida e atualiza também o status modificado
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'comentario' => 'required|string'
+            'comentario' => 'required|string',
+            'status'     => 'required|string'
         ]);
 
         $busca = Busca::where(
@@ -204,14 +233,15 @@ class BuscaController extends Controller
         )->findOrFail($id);
 
         $busca->update([
-            'comentario' => $request->input('comentario')
+            'comentario' => $request->input('comentario'),
+            'status'     => $request->input('status')
         ]);
 
         return redirect()
             ->route('busca.index')
             ->with(
                 'sucesso',
-                'Comentário atualizado com sucesso!'
+                'Registro atualizado com sucesso!'
             );
     }
 

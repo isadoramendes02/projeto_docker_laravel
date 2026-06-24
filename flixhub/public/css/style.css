@@ -913,68 +913,257 @@ body {
     }
 }
 
-.resultado-card {
-    max-width: 1200px;
-    margin: 20px auto;
-    background: #111827;
-    border: 1px solid #1e40af;
-    border-radius: 12px;
-    padding: 20px;
+/* =========================
+   PÁGINA BUSCA / LISTA
+========================= */
 
-    display: grid;
-    grid-template-columns: 250px 1fr 420px;
-    gap: 25px;
-
-    align-items: start;
+.secao-busca{
+    max-width:700px;
+    margin:40px auto;
+    text-align:center;
 }
 
-.resultado-imagem {
-    width: 250px;
+.secao-busca h1{
+    color:#fff;
+    margin-bottom:20px;
 }
 
-.resultado-cartaz {
-    width: 250px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 10px;
+.barra-busca-container{
+    display:flex;
+    gap:10px;
+    background:rgba(15,23,42,.9);
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #1e40af;
 }
 
-.resultado-info {
-    display: flex;
-    flex-direction: column;
+.input-busca{
+    flex:1;
+    padding:12px;
+    background:#1e293b;
+    border:1px solid #334155;
+    border-radius:8px;
+    color:white;
+    font-size:16px;
 }
 
-.resultado-titulo {
-    margin-bottom: 15px;
-    font-size: 2rem;
-    color: white;
+.btn-busca{
+    background:#1e40af;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.resultado-descricao-titulo {
-    margin-top: 15px;
+.btn-busca:hover{
+    background:#2563eb;
 }
 
-.resultado-trailer {
-    display: flex;
-    flex-direction: column;
+/* =========================
+   RESULTADOS
+========================= */
+
+.resultado-card{
+    max-width:1200px;
+    margin:25px auto;
+    padding:20px;
+    border-radius:15px;
+    border:1px solid #1e40af;
+    background:#0f172a;
+    display:grid;
+    grid-template-columns:220px 1fr 420px;
+    gap:25px;
+    align-items:start;
 }
 
-.resultado-trailer h4 {
-    margin-bottom: 10px;
-    color: #60a5fa;
+.resultado-imagem{
+    display:flex;
+    justify-content:center;
 }
 
-.video-trailer {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-
-    border-radius: 10px;
-    border: 2px solid #1e40af;
-    background: #000;
+.resultado-cartaz{
+    width:220px;
+    height:320px;
+    object-fit:cover;
+    border-radius:12px;
 }
 
-.btn-adicionar-lista {
-    margin-top: 20px;
-    width: fit-content;
+.resultado-info{
+    color:white;
+}
+
+.resultado-titulo{
+    margin-bottom:15px;
+    color:#3b82f6;
+}
+
+.resultado-info p{
+    margin:10px 0;
+}
+
+.resultado-descricao-titulo{
+    margin-top:20px;
+    color:#60a5fa;
+}
+
+.resultado-descricao{
+    margin-top:10px;
+    line-height:1.6;
+    color:#cbd5e1;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.resultado-status{
+    margin-top:25px;
+}
+
+.label-status{
+    display:block;
+    margin-bottom:8px;
+    color:white;
+    font-weight:bold;
+}
+
+.select-status{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #334155;
+    background:#1e293b;
+    color:white;
+}
+
+/* =========================
+   TRAILER
+========================= */
+
+.resultado-trailer{
+    display:flex;
+    flex-direction:column;
+}
+
+.resultado-trailer h4{
+    margin-bottom:12px;
+    color:#60a5fa;
+}
+
+.video-trailer{
+    width:100%;
+    height:250px;
+    border-radius:12px;
+    background:black;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
+.btn-azul{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 18px;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.btn-azul:hover{
+    background:#1d4ed8;
+}
+
+.btn-vermelho{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-vermelho:hover{
+    background:#b91c1c;
+}
+
+/* =========================
+   MINHA LISTA
+========================= */
+
+.secao-lista{
+    max-width:1200px;
+    margin:40px auto;
+    background:#0f172a;
+    border:1px solid #1e40af;
+    border-radius:15px;
+    padding:20px;
+}
+
+.secao-lista h2{
+    color:white;
+    margin-bottom:20px;
+}
+
+.tabela-lista{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabela-lista th{
+    background:#1e40af;
+    color:white;
+    padding:12px;
+    text-align:left;
+}
+
+.tabela-lista td{
+    padding:12px;
+    border-bottom:1px solid #334155;
+    color:white;
+}
+
+.coluna-titulo-obra{
+    color:#60a5fa;
+    font-weight:bold;
+}
+
+.form-deletar{
+    display:inline;
+}
+
+.lista-vazia-texto{
+    text-align:center;
+    color:#94a3b8;
+    padding:20px;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width:1100px){
+
+    .resultado-card{
+        grid-template-columns:1fr;
+    }
+
+    .resultado-imagem{
+        justify-content:center;
+    }
+
+    .resultado-cartaz{
+        width:250px;
+        height:360px;
+    }
+
+    .video-trailer{
+        height:300px;
+    }
+
 }

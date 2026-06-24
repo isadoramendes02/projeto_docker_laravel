@@ -16,6 +16,7 @@ class Busca extends Model
     protected $fillable = [
     'titulo_obra',
     'comentario',
-    'user_id'
+    'user_id',
+    'status'
 ];
 }
