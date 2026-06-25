@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Flixhub</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -14,7 +14,7 @@
     <div class="login-card formulario-container">
         <h2>Entrar</h2>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="/login">
             @csrf
 
             <div class="form-group">
@@ -31,9 +31,9 @@
 
             <div class="login-links">
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">Esqueceu a senha?</a>
+                    <a href="/forgot-password">Esqueceu a senha?</a>
                 @endif
-                <a href="{{ route('register') }}">Criar uma conta</a>
+                <a href="/register">Criar uma conta</a>
             </div>
         </form>
     </div>

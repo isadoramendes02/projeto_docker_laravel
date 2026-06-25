@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro - Flixhub</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <div class="login-container">
@@ -10,7 +10,7 @@
     <div class="login-card">
         <h2>Cadastrar</h2>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="/register">
             @csrf
 
             <div class="form-group">
@@ -38,7 +38,7 @@
             </button>
 
             <div class="login-links">
-                <a href="{{ route('login') }}">Já tem uma conta? Entre aqui</a>
+                <a href="/login">Já tem uma conta? Entre aqui</a>
             </div>
         </form>
     </div>

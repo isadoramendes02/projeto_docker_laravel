@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlixHub - Meus Filmes</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -15,17 +15,17 @@
         <div class="nav-container">
             <a href="/filmes" class="nav-logo">Flix<span>Hub</span></a>
             <ul class="nav-menu">
-                <li><a href="{{ route('dashboard') }}" class="nav-link">Início</a></li>
+                <li><a href="/dashboard" class="nav-link">Início</a></li>
                 <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
                 <li><a href="/series" class="nav-link">Séries</a></li>
                 <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-                <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
+                <li><a href="/playlists.index/" class="nav-link">Trailer</a></li>
                 <li><a href="/busca" class="nav-link">Lista</a></li>
                 <li>
-                    <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" class="form-hidden">
+                    <form method="POST" action="/'logout" id="logout-form-dash" class="form-hidden">
                         @csrf
                     </form>
-                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
+                    <a href="/logout" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
                         Sair
                     </a>
                 </li>

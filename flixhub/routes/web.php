@@ -59,4 +59,5 @@ require __DIR__.'/auth.php';
 
 Route::get('/php-info', function() {
     return phpinfo();
+
 });

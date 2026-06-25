@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Recuperar Senha - Flixhub</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <div class="login-container">
@@ -20,12 +20,12 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="/forgot-password">
             @csrf
 
             <div class="form-group">
                 <input type="email" name="email" placeholder="E-mail cadastrado" value="{{ old('email') }}" required autofocus>
-                @error('email') <span>{{ $message }}</span> @enderror
+                @error('email') <span class="erro-mensagem">{{ $message }}</span> @enderror
             </div>
 
             <button type="submit" class="btn-login">
@@ -33,7 +33,7 @@
             </button>
 
             <div class="login-links forgot-links">
-                <a href="{{ route('login') }}">Voltar para o Login</a>
+                <a href="/login">Voltar para o Login</a>
             </div>
         </form>
     </div>
