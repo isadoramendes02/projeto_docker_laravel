@@ -21,7 +21,7 @@
                 <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
                 <li><a href="/busca" class="nav-link">Lista</a></li>
                 <li>
-                    <form method="POST" action="/'logout" id="logout-form-dash" class="form-hidden">
+                    <form method="POST" action="/logout" id="logout-form-dash" class="form-hidden">
                         @csrf
                     </form>
                     <a href="/logout" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form-dash').submit();">
