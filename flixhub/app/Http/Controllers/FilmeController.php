@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Busca;
 use App\Models\Filme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +24,11 @@ class FilmeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100',
-            'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:5', 
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
+            'titulo'   => 'required|string|max:255',
+            'genero'   => 'required|string|max:100',
+            'descricao'=> 'required',
+            'nota'     => 'required|numeric|min:0|max:5',
+            'imagem'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
         $existe = Filme::where('user_id', Auth::id())
@@ -39,19 +40,18 @@ class FilmeController extends Controller
         }
 
         $caminhoImagem = null;
-
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
             try {
                 $caminhoImagem = $request->file('imagem')->store('filmes', 'fotos_publicas');
             } catch (\Exception $e) {
-                $caminhoImagem = null; 
+                $caminhoImagem = null;
             }
         }
 
         Filme::create([
             'titulo'    => trim($request->titulo),
-            'genero'    => $request->genero, 
-            'descricao' => $request->descricao, 
+            'genero'    => $request->genero,
+            'descricao' => $request->descricao,
             'nota'      => $request->nota,
             'imagem'    => $caminhoImagem,
             'user_id'   => Auth::id(),
@@ -77,11 +77,11 @@ class FilmeController extends Controller
         $filme = Filme::findOrFail($id);
 
         $request->validate([
-            'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100', 
+            'titulo'    => 'required|string|max:255',
+            'genero'    => 'required|string|max:100',
             'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:5',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
+            'nota'      => 'required|numeric|min:0|max:5',
+            'imagem'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
         $existe = Filme::where('user_id', Auth::id())
@@ -94,10 +94,10 @@ class FilmeController extends Controller
         }
 
         $dados = [
-            'titulo' => trim($request->titulo),
-            'genero' => $request->genero, 
+            'titulo'    => trim($request->titulo),
+            'genero'    => $request->genero,
             'descricao' => $request->descricao,
-            'nota' => $request->nota 
+            'nota'      => $request->nota
         ];
 
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
@@ -124,9 +124,12 @@ class FilmeController extends Controller
             if ($filme->imagem && Storage::disk('fotos_publicas')->exists($filme->imagem)) {
                 Storage::disk('fotos_publicas')->delete($filme->imagem);
             }
-        } catch (\Exception $e) {
-            
-        }
+        } catch (\Exception $e) {}
+
+        // ✅ Deleta da lista de busca automaticamente
+        Busca::where('user_id', $filme->user_id)
+            ->where('titulo_obra', $filme->titulo)
+            ->delete();
 
         $filme->delete();
 

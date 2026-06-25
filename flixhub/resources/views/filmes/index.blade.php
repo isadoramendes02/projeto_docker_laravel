@@ -19,7 +19,6 @@
                 <li><a href="/filmes" class="nav-link ativo">Filmes</a></li>
                 <li><a href="/series" class="nav-link">Séries</a></li>
                 <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-                <li><a href="/playlists.index/" class="nav-link">Trailer</a></li>
                 <li><a href="/busca" class="nav-link">Lista</a></li>
                 <li>
                     <form method="POST" action="/'logout" id="logout-form-dash" class="form-hidden">

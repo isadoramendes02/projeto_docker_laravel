@@ -18,11 +18,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 
     Route::get('/filmes', [FilmeController::class, 'index'])->name('filmes.index');
     Route::get('/filmes/create', [FilmeController::class, 'create'])->name('filmes.create');
@@ -32,7 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/filmes/{id}', [FilmeController::class, 'show'])->name('filmes.show');
     Route::delete('/filmes/{id}', [FilmeController::class, 'destroy'])->name('filmes.destroy');
 
-    
     Route::get('/series', [SerieController::class, 'index'])->name('series.index');
     Route::get('/series/create', [SerieController::class, 'create'])->name('series.create');
     Route::post('/series', [SerieController::class, 'store'])->name('series.store');
@@ -41,7 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/series/{id}', [SerieController::class, 'show'])->name('series.show');
     Route::delete('/series/{id}', [SerieController::class, 'destroy'])->name('series.destroy');
 
-    
     Route::get('/favoritos', [FavoritoController::class, 'index'])->name('favoritos.index');
     Route::get('/favoritos/create', [FavoritoController::class, 'create'])->name('favoritos.create');
     Route::post('/favoritos', [FavoritoController::class, 'store'])->name('favoritos.store');
@@ -49,15 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/favoritos/{favorito}', [FavoritoController::class, 'update'])->name('favoritos.update');
     Route::delete('/favoritos/{id}', [FavoritoController::class, 'destroy'])->name('favoritos.destroy');
 
-    
     Route::resource('busca', BuscaController::class);
-
-    Route::resource('playlists', PlaylistController::class);
 });
 
 require __DIR__.'/auth.php';
 
 Route::get('/php-info', function() {
     return phpinfo();
-
 });

@@ -19,7 +19,6 @@
                 <li><a href="/filmes" class="nav-link">Filmes</a></li>
                 <li><a href="/series" class="nav-link">Séries</a></li>
                 <li><a href="/favoritos" class="nav-link">Favoritos</a></li>
-                <li><a href="{{ route('playlists.index') }}" class="nav-link">Trailer</a></li>
                 <li><a href="/busca" class="nav-link ativo">Lista</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" id="logout-form-dash" class="form-hidden">
@@ -77,15 +76,6 @@
                             <strong>📝 Descrição:</strong>
                             <p>{{ $obra->descricao }}</p>
                         </div>
-
-                        @if($playlist)
-                            <div class="trailer-box">
-                                <h4>🎥 Trailer</h4>
-                                <video class="trailer-video" controls>
-                                    <source src="{{ asset($playlist->trailer) }}" type="video/mp4">
-                                </video>
-                            </div>
-                        @endif
                     </div>
                 </div>
             @endif

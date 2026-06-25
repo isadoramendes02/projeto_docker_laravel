@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Busca;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +24,11 @@ class SerieController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100',
+            'titulo'    => 'required|string|max:255',
+            'genero'    => 'required|string|max:100',
             'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:5',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
+            'nota'      => 'required|numeric|min:0|max:5',
+            'imagem'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
         $existe = Serie::where('user_id', Auth::id())
@@ -39,19 +40,18 @@ class SerieController extends Controller
         }
 
         $caminhoImagem = null;
-
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
             try {
                 $caminhoImagem = $request->file('imagem')->store('series', 'fotos_publicas');
             } catch (\Exception $e) {
-                $caminhoImagem = null; 
+                $caminhoImagem = null;
             }
         }
 
         Serie::create([
             'titulo'    => trim($request->titulo),
-            'genero'    => $request->genero, 
-            'descricao' => $request->descricao, 
+            'genero'    => $request->genero,
+            'descricao' => $request->descricao,
             'nota'      => $request->nota,
             'imagem'    => $caminhoImagem,
             'user_id'   => Auth::id(),
@@ -77,11 +77,11 @@ class SerieController extends Controller
         $serie = Serie::findOrFail($id);
 
         $request->validate([
-            'titulo' => 'required|string|max:255',
-            'genero' => 'required|string|max:100',
+            'titulo'    => 'required|string|max:255',
+            'genero'    => 'required|string|max:100',
             'descricao' => 'required',
-            'nota' => 'required|numeric|min:0|max:5',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
+            'nota'      => 'required|numeric|min:0|max:5',
+            'imagem'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
         ]);
 
         $existe = Serie::where('user_id', Auth::id())
@@ -94,10 +94,10 @@ class SerieController extends Controller
         }
 
         $dados = [
-            'titulo' => trim($request->titulo),
-            'genero' => $request->genero,
+            'titulo'    => trim($request->titulo),
+            'genero'    => $request->genero,
             'descricao' => $request->descricao,
-            'nota' => $request->nota
+            'nota'      => $request->nota
         ];
 
         if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
@@ -124,9 +124,12 @@ class SerieController extends Controller
             if ($serie->imagem && Storage::disk('fotos_publicas')->exists($serie->imagem)) {
                 Storage::disk('fotos_publicas')->delete($serie->imagem);
             }
-        } catch (\Exception $e) {
-            
-        }
+        } catch (\Exception $e) {}
+
+        // ✅ Deleta da lista de busca automaticamente
+        Busca::where('user_id', $serie->user_id)
+            ->where('titulo_obra', $serie->titulo)
+            ->delete();
 
         $serie->delete();
 
